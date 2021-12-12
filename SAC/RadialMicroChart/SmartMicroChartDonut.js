@@ -246,7 +246,7 @@
                             that._firstConnection = 1;
 
                             this._oModel = new JSONModel({
-                                title: that._export_settings.percentage,
+                                percentage: that._export_settings.percentage,
                             });
                             sap.ui.getCore().setModel(this._oModel, that.widgetName);
                         } else {
