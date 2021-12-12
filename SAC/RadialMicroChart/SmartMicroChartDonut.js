@@ -179,7 +179,6 @@
          set percentage(value) {
             _percentage = value;
              this._export_settings.percentage = value;
-             this.percentage = value;
          }
         
          static get observedAttributes() {
