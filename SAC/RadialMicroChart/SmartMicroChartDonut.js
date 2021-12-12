@@ -189,7 +189,7 @@
          }
          
      }
-    customElements.define("com-sap-sac-percentage", SmartMicroChartDonut);
+    customElements.define("com-voith-quadrantChart", SmartMicroChartDonut);
 
     // UTILS
     function loadthis(that) {
