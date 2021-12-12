@@ -215,7 +215,7 @@
                         //console.log(oView.byId("RadialMicroChart").getDateValue());
                         var chart =  oEvent.mParameters.id;
  //                       let Radialmicrochart = oView.chart('RadialMicroChart');
-                        _percentage = oView.byId(chart).getPercentage();
+                        _percentage = oEvent.oSource.mProperties.percentage;
                         that._firePropertiesChanged();
                         console.log(_percentage);
 
