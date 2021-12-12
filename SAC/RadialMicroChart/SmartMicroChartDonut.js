@@ -1,251 +1,282 @@
-(function()  {
+(function() {
     let _shadowRoot;
     let _id;
-    let _percentage;   
+
+    let div;
+    let widgetName;
+    var Ar = [];
 
     let tmpl = document.createElement("template");
-     tmpl.innerHTML = `
-     <style>
-     </style>
-     <div id="ui5_content" name="ui5_content">
-       <slot name="content"></slot>
-     </div>
+    tmpl.innerHTML = `
+      <style>
+      </style>        
+    `;
 
-    <script id="oView" name="oView" type="sapui5/xmlview">
-    <mvc:View
-	controllerName="sap.suite.ui.microchart.sample.RadialMicroChartResponsive.Page"
-	xmlns="sap.suite.ui.microchart"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:m="sap.m">
-	<m:FlexBox renderType="Bare" direction="Column" class="sapUiSmallMarginBegin">
-		<m:items>
-			<m:FlexBox id="chartContainer" width="95px" height= "95px" renderType="Bare"
-					   class="sapUiSmallMargin">
-				<m:items>
-					<RadialMicroChart id="SMCDonut_1" size="Responsive" percentage="90" press="onPress"/>
-				</m:items>
-			</m:FlexBox>
-		</m:items>
-	</m:FlexBox>
-</mvc:View>
+    class SmartMicroChart extends HTMLElement {
+
+        constructor() {
+            super();
+
+            _shadowRoot = this.attachShadow({
+                mode: "open"
+            });
+            _shadowRoot.appendChild(tmpl.content.cloneNode(true));
+
+            _id = createGuid();            
+
+            //_shadowRoot.querySelector("#oView").id = _id + "_oView";
 
 
-   </script>   
-     `;
- 
+            this._export_settings = {};
+            this._export_settings.percent = "";
+            this._export_settings.chartType = "";
 
-     class SmartMicroChartDonut extends HTMLElement {
-         constructor() {
-             super(); 
-             _shadowRoot = this.attachShadow({
-                 mode: "open"
-             });
-             _shadowRoot.appendChild(tmpl.content.cloneNode(true));
+            this.addEventListener("press", event => {
+                console.log('press');
 
-             _id = createGuid();
+            });
 
-             _shadowRoot.querySelector("#oView").id = _id + "_oView";
- //            _shadowRoot.querySelector("#SMCDonut_1").id = _id + "test";
+            this._firstConnection = 0;            
+        }
 
-             this._export_settings = {};
-             this._export_settings.percentage = 0;
+        connectedCallback() {
+            try {
+                if (window.commonApp) {
+                    let outlineContainer = commonApp.getShell().findElements(true, ele => ele.hasStyleClass && ele.hasStyleClass("sapAppBuildingOutline"))[0]; // sId: "__container0"
 
-             this.addEventListener("press", event => {
-               
-                 console.log('press');
-             });
+                    if (outlineContainer && outlineContainer.getReactProps) {
+                        let parseReactState = state => {
+                            let components = {};
 
+                            let globalState = state.globalState;
+                            let instances = globalState.instances;
+                            let app = instances.app["[{\"app\":\"MAIN_APPLICATION\"}]"];
+                            let names = app.names;
 
-                 
-         }
- 
-         //Fired when the widget is added to the html DOM of the page
-         connectedCallback() {
-             try {
-                 if (window.commonApp) {
-                     let outlineContainer = commonApp.getShell().findElements(true, ele => ele.hasStyleClass && ele.hasStyleClass("sapAppBuildingOutline"))[0]; // sId: "__container0"
+                            for (let key in names) {
+                                let name = names[key];
 
-                     if (outlineContainer && outlineContainer.getReactProps) {
-                         let parseReactState = state => {
-                             let components = {};
+                                let obj = JSON.parse(key).pop();
+                                let type = Object.keys(obj)[0];
+                                let id = obj[type];
 
-                             let globalState = state.globalState;
-                             let instances = globalState.instances;
-                             let app = instances.app["[{\"app\":\"MAIN_APPLICATION\"}]"];
-                             let names = app.names;
+                                components[id] = {
+                                    type: type,
+                                    name: name
+                                };
+                            }
 
-                             for (let key in names) {
-                                 let name = names[key];
+                            for (let componentId in components) {
+                                let component = components[componentId];
+                            }
 
-                                 let obj = JSON.parse(key).pop();
-                                 let type = Object.keys(obj)[0];
-                                 let id = obj[type];
+                            let metadata = JSON.stringify({
+                                components: components,
+                                vars: app.globalVars
+                            });
 
-                                 components[id] = {
-                                     type: type,
-                                     name: name
-                                 };
-                             }
+                            if (metadata != this.metadata) {
+                                this.metadata = metadata;
 
-                             for (let componentId in components) {
-                                 let component = components[componentId];
-                             }
+                                this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                                    detail: {
+                                        properties: {
+                                            metadata: metadata
+                                        }
+                                    }
+                                }));
+                            }
+                        };
 
-                             let metadata = JSON.stringify({
-                                 components: components,
-                                 vars: app.globalVars
-                             });
+                        let subscribeReactStore = store => {
+                            this._subscription = store.subscribe({
+                                effect: state => {
+                                    parseReactState(state);
+                                    return {
+                                        result: 1
+                                    };
+                                }
+                            });
+                        };
 
-                            //  if (metadata != this.metadata) {
-                            //      this.metadata = metadata;
+                        let props = outlineContainer.getReactProps();
+                        if (props) {
+                            subscribeReactStore(props.store);
+                        } else {
+                            let oldRenderReactComponent = outlineContainer.renderReactComponent;
+                            outlineContainer.renderReactComponent = e => {
+                                let props = outlineContainer.getReactProps();
+                                subscribeReactStore(props.store);
 
-                            //      this.dispatchEvent(new CustomEvent("propertiesChanged", {
-                            //          detail: {
-                            //              properties: {
-                            //                  metadata: metadata
-                            //              }
-                            //          }
-                            //      }));
-                            //  }
-                         };
-
-                         let subscribeReactStore = store => {
-                             this._subscription = store.subscribe({
-                                 effect: state => {
-                                     parseReactState(state);
-                                     return {
-                                         result: 1
-                                     };
-                                 }
-                             });
-                         };
-
-                         let props = outlineContainer.getReactProps();
-                         if (props) {
-                             subscribeReactStore(props.store);
-                         } else {
-                             let oldRenderReactComponent = outlineContainer.renderReactComponent;
-                             outlineContainer.renderReactComponent = e => {
-                                 let props = outlineContainer.getReactProps();
-                                 subscribeReactStore(props.store);
-
-                                 oldRenderReactComponent.call(outlineContainer, e);
-                             }
-                         }
-                     }
-                 }
-             } catch (e) { }
-         }
- 
-          //Fired when the widget is removed from the html DOM of the page (e.g. by hide)
-         disconnectedCallback() {
-             if (this._subscription) {
-                 this._subscription();
-                 this._subscription = null;
-             }
-         
-         }
- 
-          //When the custom widget is updated, the Custom Widget SDK framework executes this function first
-         onCustomWidgetBeforeUpdate(oChangedProperties) {
-             if ("designMode" in oChangedProperties) {
-                 this._designMode = oChangedProperties["designMode"];
-             }
- 
-         }
- 
-         //When the custom widget is updated, the Custom Widget SDK framework executes this function after the update
-         onCustomWidgetAfterUpdate(oChangedProperties) {
-             loadthis(this);  
-         }
-
-
-          _firePropertiesChanged() {
-              this.percentage = 0;
-            this.dispatchEvent(new CustomEvent("propertiesChanged", {
-            detail: {
-                properties: {
-                    percentage: this._export_settings.percentage
+                                oldRenderReactComponent.call(outlineContainer, e);
+                            }
+                        }
+                    }
                 }
-            }
-        }));
-            
-          }
-         // SETTINGS
-         get percentage() {
-             return this._export_settings.percentage;
-         }
+            } catch (e) {}
+        }
 
-         set percentage(value) {
-            _percentage = value;
-             this._export_settings.percentage = value;
-         }
-        
-         static get observedAttributes() {
-             return [
-                 "percentage"
-             ];
-         }
-         attributeChangedCallback(name, oldValue, newValue) {
-             if (oldValue != newValue) {
-                 this[name] = newValue;
-             }
-         }
-         
-     }
-    customElements.define("com-voith-smalmicrochartdonut", SmartMicroChartDonut);
+        disconnectedCallback() {
+            if (this._subscription) { // react store subscription
+                this._subscription();
+                this._subscription = null;
+            }
+        }
+
+        onCustomWidgetBeforeUpdate(changedProperties) {
+            if ("designMode" in changedProperties) {
+                this._designMode = changedProperties["designMode"];
+            }
+        }
+
+        onCustomWidgetAfterUpdate(changedProperties) {
+            var that = this;
+            loadthis(that, changedProperties);
+        }
+
+        _renderExportButton() {
+            let components = this.metadata ? JSON.parse(this.metadata)["components"] : {};
+            console.log("_renderExportButton-components");
+            console.log(components);
+            console.log("end");
+        }
+
+        _firePropertiesChanged() {
+            this.percentage = "87.8";
+            this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                detail: {
+                    properties: {
+                        percent: this.percent
+                    }
+                }
+            }));
+        }
+
+        // SETTINGS
+        get percentage() {
+            return this._export_settings.percent;
+        }
+        set percentage(value) {
+        	console.log("setPercent:" + value);
+            this._export_settings.percent = value;
+        }
+
+        get charttype() {
+            return this._export_settings.charttype;
+        }
+        set charttype(value) {
+            this._export_settings.charttype = value;
+        }
+
+        static get observedAttributes() {
+            return [
+                "percentage",
+                "charttype"
+            ];
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+            if (oldValue != newValue) {
+                this[name] = newValue;
+            }
+        }
+
+    }
+    customElements.define("com-voith-sac-smartmicrochart", SmartMicroChart);
 
     // UTILS
-    function loadthis(that) {
+    function loadthis(that, changedProperties) {
         var that_ = that;
 
-        let content = document.createElement('div');
-        content.slot = "content";
-        that_.appendChild(content);
+        // widgetName = changedProperties.widgetName;
+        // if(typeof widgetName === "undefined") {
+        // 	widgetName = that._export_settings.title.split("|")[0];
+        // }
+        widgetName = "content_smartmicrochart";
+        // div = document.createElement('div');
+         div.slot = "content_" + widgetName;
 
-        sap.ui.getCore().attachInit(function () {
+        percentage = that_.percentage;
+        if(that._firstConnection === 0) {
+        	console.log("--First Time --");
+
+        	let div0 = document.createElement('div');   
+        	div0.innerHTML = '<?xml version="1.0"?><script id="oView_' + widgetName + '" name="oView_' + widgetName + '" type="sapui5/xmlview"><mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="myView.Template"><RadialMicroChart size="L" percentage="' + percentage + '" press="onPress" class="sapUiSmallMargin"></RadialMicroChart></mvc:View></script>';
+        	_shadowRoot.appendChild(div0);  
+
+            that_.appendChild(div);   	
+            var mapcanvas_divstr = _shadowRoot.getElementById('oView_' + widgetName);
+            Ar.push({
+                'id': widgetName,
+                'div': mapcanvas_divstr
+            });
+            console.log(Ar);
+    	}
+
+        sap.ui.getCore().attachInit(function() {
             "use strict";
 
             //### Controller ###
             sap.ui.define([
                 "jquery.sap.global",
-                "sap/ui/core/mvc/Controller"
-            ], function (jQuery, Controller) {
+                "sap/ui/core/mvc/Controller",
+                "sap/ui/model/json/JSONModel",
+                "sap/m/MessageToast",
+                "sap/ui/core/library",
+                "sap/ui/core/Core",
+                'sap/ui/model/Filter',
+                'sap/m/library',
+                'sap/m/MessageBox',
+                'sap/ui/unified/DateRange',
+                'sap/ui/core/format/DateFormat'
+            ], function(jQuery, Controller, JSONModel, MessageToast, coreLibrary, Core, Filter, mobileLibrary, MessageBox, DateRange, DateFormat) {
                 "use strict";
 
-                return Controller.extend("sap.suite.ui.microchart.sample.RadialMicroChartResponsive.Page", {
-                    
-                    
-                    onPress: function (oEvent) {
-                        //console.log(oView.byId("RadialMicroChart").getDateValue());
-                        var chart =  oEvent.mParameters.id;
- //                       let Radialmicrochart = oView.chart('RadialMicroChart');
- //                       _percentage = oEvent.oSource.mProperties.percentage;
- //                       that._firePropertiesChanged();
-                        console.log(_percentage);
+                return Controller.extend("myView.Template", {
+                    onInit: function() {
+                    	console.log("-------oninit--------");
+                    	console.log(that._export_settings.percentage);
+                    	console.log("widgetName:" + that.widgetName);
 
-                        this.settings = {};
-                        this.settings.percentage = 0;
+                    	if(that._firstConnection === 0) {
+                            that._firstConnection = 1;
 
+                            this._oModel = new JSONModel({
+                                title: that._export_settings.percentage,
+                            });
+                            sap.ui.getCore().setModel(this._oModel, that.widgetName);
+                        } else {
+                           var oModel = sap.ui.getCore().getModel(that.widgetName);
+                            oModel.setProperty("/percentage", that._export_settings.percentage);
+                        }
+                    },
+
+                    Onpress : function(evt) {
+						MessageToast.show("The GenericTile is pressed.");
+						that._firePropertiesChanged();
+						this.settings = {};
+                        this.settings.percentage = "";
                         that.dispatchEvent(new CustomEvent("onStart", {
                             detail: {
                                 settings: this.settings
                             }
                         }));
-                    }
+					}
+
                 });
             });
 
             //### THE APP: place the XMLView somewhere into DOM ###
+            console.log("widgetName Final:" + widgetName);
+            var foundIndex = Ar.findIndex(x => x.id == widgetName);
+            var divfinal = Ar[foundIndex].div;
+            console.log(divfinal);
+            
             var oView = sap.ui.xmlview({
-                viewContent: jQuery(_shadowRoot.getElementById(_id + "_oView")).html(),
+                viewContent: jQuery(divfinal).html(),
             });
-            oView.placeAt(content);
 
-           
- //           if (that_._designMode) {
- //               oView.byId("dateInput").setEnabled(false);
- //           }
+            oView.placeAt(div);
         });
     }
 
@@ -255,5 +286,20 @@
                 v = c === "x" ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
-    }  
+    }
+
+    function loadScript(src, shadowRoot) {
+        return new Promise(function(resolve, reject) {
+            let script = document.createElement('script');
+            script.src = src;
+
+            script.onload = () => {
+                console.log("Load: " + src);
+                resolve(script);
+            }
+            script.onerror = () => reject(new Error(`Script load error for ${src}`));
+
+            shadowRoot.appendChild(script)
+        });
+    }
 })();

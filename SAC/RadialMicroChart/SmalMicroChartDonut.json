@@ -1,62 +1,68 @@
 {
-	"id": "com.voith.SmalMicroChartDonut",
-	"version": "1.0.0",
-	"name": "Smal Micro Chart Donut chart",
-	"description": "Smal Micro Chart Donut chart",
-	"newInstancePrefix": "SMChartDonut",
-	"icon": "https://fhasba1204.github.io/SAC/RadialMicroChart/icon.png",
+	"id": "com.voith.sac.smartmicrochart",
+	"version": "0.0.2",
+	"name": "Smart MicroChart",
+	"description": "Smart MicroChart",
+	"newInstancePrefix": "smc",
+	"icon":"https://fhasba1204.github.io/SAC/RadialMicroChart/icon.png",
 	"vendor": "Voith",
 	"eula": "",
 	"license": "",
+	"imports": [ "input-controls" ],
 	"webcomponents": [
-		{
-			"kind": "main",
-			"tag": "com-voith-smalmicrochartdonut",
-			"url": "https://fhasba1204.github.io/SAC/RadialMicroChart/SmartMicroChartDonut.js",
-			"integrity": "",
-			"ignoreIntegrity": true
-		}
+	  {
+		"kind": "main",
+		"tag": "com-voith-sac-smartmicrochart",
+		"url": "https://fhasba1204.github.io/SAC/RadialMicroChart/SmartMicroChartDonut.js",
+		"integrity": "",
+		"ignoreIntegrity": true
+	  },
+	  {
+		"kind": "styling",
+		"tag": "com-voith-sac-smartmicrochart-aps",
+		"url": "https://fhasba1204.github.io/SAC/RadialMicroChart/aps_SmartMicroChartDonut.js",
+		"integrity": "",
+		"ignoreIntegrity": true
+	  }
 	],
 	"properties": {
-        "metadata": {
-            "type": "string",
-            "description": "For internal use",
-            "default": ""
-          },
-		"chartType": {
-			"type": "string",
-			"description": "Chart Type",
-			"default": "Donut"
-		},
-        "percentage": {
-			"type": "number",
-			"description": "Percentage",
-			"default": 0.0
-		}
+	  "metadata": {
+		"type": "string",
+		"description": "For internal use",
+		"default": ""
+	  },
+	  "charttype": {
+		"type": "string",
+		"description": "Chart Type",
+		"default": "Donut"
 	},
-	"methods": {
-		"setPercentage": {
-			"description": "Sets the Percentage.",
-			"parameters": [
-				{
-					"name": "fPercentage",
-					"type": "number",
-					"description": "The new percentage"
-				}
-			],
-			"body": "this.percentage = fPercentage;"
-		},
-		"getPercentage": {
-			"returnType": "number",
-			"description": "Returns the percentage.",
-			"body": "return this.percentage;"
-		}
+	"percentage": {
+		"type": "number",
+		"description": "Percentage",
+		"default": 0.0
+	}
+},
+"methods": {
+	"setPercentage": {
+		"description": "Sets the Percentage.",
+		"parameters": [
+			{
+				"name": "fPercentage",
+				"type": "number",
+				"description": "The new percentage"
+			}
+		],
+		"body": "this.percentage = fPercentage;"
 	},
-	"events": {
-		"onPress": {
-			"description": "Called when the chart is pressed."
-		}
+	"getPercentage": {
+		"returnType": "number",
+		"description": "Returns the percentage.",
+		"body": "return this.percentage;"
+	}
+},
+"events": {
+	"onPress": {
+		"description": "Called when the chart is pressed."
 	}
 }
-
- 
+  }
