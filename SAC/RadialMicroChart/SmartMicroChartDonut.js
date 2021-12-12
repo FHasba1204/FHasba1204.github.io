@@ -22,7 +22,7 @@
 			<m:FlexBox id="chartContainer" width="95px" height= "95px" renderType="Bare"
 					   class="sapUiSmallMargin">
 				<m:items>
-					<RadialMicroChart size="Responsive" percentage="90" press="press"/>
+					<RadialMicroChart size="Responsive" percentage="90" press="onPress"/>
 				</m:items>
 			</m:FlexBox>
 		</m:items>
