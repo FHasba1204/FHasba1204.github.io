@@ -162,7 +162,7 @@
 
           _firePropertiesChanged() {
               this.percentage = 0;
-        this.dispatchEvent(new CustomEvent("propertiesChanged", {
+            this.dispatchEvent(new CustomEvent("propertiesChanged", {
             detail: {
                 properties: {
                     percentage: this._export_settings.percentage
@@ -179,6 +179,7 @@
          set percentage(value) {
             _percentage = value;
              this._export_settings.percentage = value;
+             this.percentage = value;
          }
         
          static get observedAttributes() {
