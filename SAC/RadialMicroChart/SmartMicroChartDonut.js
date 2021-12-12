@@ -163,7 +163,7 @@
              this.dispatchEvent(new CustomEvent("propertiesChanged", {
                  detail: {
                      properties: {
-                         percentage: this.percentage
+                         percentage: _percentage
                      }
                  }
              }));
@@ -174,7 +174,7 @@
          }
 
          set percentage(value) {
-            this._percentage = value;
+            _percentage = value;
              this._export_settings.percentage = value;
          }
         
