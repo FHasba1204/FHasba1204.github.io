@@ -1,0 +1,76 @@
+{
+	"id": "com.voith.SmalMicroChartDonut",
+	"version": "1.0.0",
+	"name": "Smal Micro Chart Donut chart",
+	"description": "Smal Micro Chart Donut chart",
+	"newInstancePrefix": "SMChartDonut",
+	"icon": "https://www.sample.com/customwidgets/coloredbox/icon.png",
+	"vendor": "Voith",
+	"eula": "",
+	"license": "",
+	"webcomponents": [
+		{
+			"kind": "main",
+			"tag": "com-voith-quadrantChart",
+			"url": "https://www.sample.com/customwidgets/coloredbox/coloredbox.js",
+			"integrity": "",
+			"ignoreIntegrity": true
+		},
+		{
+			"kind": "styling",
+			"tag": "com-voith-quadrantChart-styling",
+			"url": "https://www.sample.com/customwidgets/coloredbox/coloredbox_styling.js",
+			"integrity": "",
+			"ignoreIntegrity": true
+		},
+		{
+			"kind": "builder",
+			"tag": "com-voith-quadrantChart-builder",
+			"url": "https://www.sample.com/customwidgets/coloredbox/coloredbox_builder.js",
+			"integrity": "",
+			"ignoreIntegrity": true
+		}
+	],
+	"properties": {
+        "metadata": {
+            "type": "string",
+            "description": "For internal use",
+            "default": ""
+          },
+		"chartType": {
+			"type": "string",
+			"description": "Chart Type",
+			"default": "Donut"
+		},
+        "percentage": {
+			"type": "float",
+			"description": "Percentage",
+			"default": 0.0
+		}
+	},
+	"methods": {
+		"setPercentage": {
+			"description": "Sets the Percentage.",
+			"parameters": [
+				{
+					"name": "fPercentage",
+					"type": "float",
+					"description": "The new percentage"
+				}
+			],
+			"body": "this.percentage = fPercentage;"
+		},
+		"getPercentage": {
+			"returnType": "float",
+			"description": "Returns the percentage.",
+			"body": "return this.percentage;"
+		}
+	},
+	"events": {
+		"onPress": {
+			"description": "Called when the chart is pressed."
+		}
+	}
+}
+
+ 
