@@ -4,7 +4,7 @@
 	"name": "Smal Micro Chart Donut chart",
 	"description": "Smal Micro Chart Donut chart",
 	"newInstancePrefix": "SMChartDonut",
-	"icon": "https://www.sample.com/customwidgets/coloredbox/icon.png",
+	"icon": "https://fhasba1204.github.io/SAC/RadialMicroChart/icon.png",
 	"vendor": "Voith",
 	"eula": "",
 	"license": "",
@@ -12,21 +12,7 @@
 		{
 			"kind": "main",
 			"tag": "com-voith-quadrantChart",
-			"url": "https://www.sample.com/customwidgets/coloredbox/coloredbox.js",
-			"integrity": "",
-			"ignoreIntegrity": true
-		},
-		{
-			"kind": "styling",
-			"tag": "com-voith-quadrantChart-styling",
-			"url": "https://www.sample.com/customwidgets/coloredbox/coloredbox_styling.js",
-			"integrity": "",
-			"ignoreIntegrity": true
-		},
-		{
-			"kind": "builder",
-			"tag": "com-voith-quadrantChart-builder",
-			"url": "https://www.sample.com/customwidgets/coloredbox/coloredbox_builder.js",
+			"url": "https://fhasba1204.github.io/SAC/RadialMicroChart/SmartMicroChartDonut.js",
 			"integrity": "",
 			"ignoreIntegrity": true
 		}
