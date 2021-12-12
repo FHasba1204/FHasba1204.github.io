@@ -94,17 +94,17 @@
                                  vars: app.globalVars
                              });
 
-                             if (metadata != this.metadata) {
-                                 this.metadata = metadata;
+                            //  if (metadata != this.metadata) {
+                            //      this.metadata = metadata;
 
-                                 this.dispatchEvent(new CustomEvent("propertiesChanged", {
-                                     detail: {
-                                         properties: {
-                                             metadata: metadata
-                                         }
-                                     }
-                                 }));
-                             }
+                            //      this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                            //          detail: {
+                            //              properties: {
+                            //                  metadata: metadata
+                            //              }
+                            //          }
+                            //      }));
+                            //  }
                          };
 
                          let subscribeReactStore = store => {
@@ -180,9 +180,11 @@
                 detail: {
                     properties: {
                         percentage: _percentage
-                }
-            }));
+                    }   
+                }}
+            ));
          }
+        
          static get observedAttributes() {
              return [
                  "percentage"
