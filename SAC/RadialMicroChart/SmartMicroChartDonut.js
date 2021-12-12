@@ -28,7 +28,7 @@
 
 
             this._export_settings = {};
-            this._export_settings.percent = "";
+            this._export_settings.percentage = 0.0;
             this._export_settings.chartType = "";
 
             this.addEventListener("press", event => {
@@ -142,11 +142,11 @@
         }
 
         _firePropertiesChanged() {
-            this.percentage = "87.8";
+            this.percentage = 0.0;
             this.dispatchEvent(new CustomEvent("propertiesChanged", {
                 detail: {
                     properties: {
-                        percent: this.percent
+                        percentage: this.percentage
                     }
                 }
             }));
@@ -154,11 +154,11 @@
 
         // SETTINGS
         get percentage() {
-            return this._export_settings.percent;
+            return this._export_settings.percentage;
         }
         set percentage(value) {
-        	console.log("setPercent:" + value);
-            this._export_settings.percent = value;
+        	console.log("setPercentage:" + value);
+            this._export_settings.percentage = value;
         }
 
         get charttype() {
