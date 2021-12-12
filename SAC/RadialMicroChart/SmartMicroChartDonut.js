@@ -204,6 +204,10 @@
         	div0.innerHTML = '<?xml version="1.0"?><script id="oView_' + widgetName + '" name="oView_' + widgetName + '" type="sapui5/xmlview"><mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="myView.Template"><RadialMicroChart size="L" percentage="' + percentage + '" press="onPress" class="sapUiSmallMargin"></RadialMicroChart></mvc:View></script>';
         	_shadowRoot.appendChild(div0);  
 
+            let div1 = document.createElement('div');            
+            div1.innerHTML = '<div id="ui5_content_' + widgetName + '" name="ui5_content_' + widgetName + '"><slot name="content_' + widgetName + '"></slot></div>';
+            _shadowRoot.appendChild(div1);   
+
             that_.appendChild(div);   	
             var mapcanvas_divstr = _shadowRoot.getElementById('oView_' + widgetName);
             Ar.push({
