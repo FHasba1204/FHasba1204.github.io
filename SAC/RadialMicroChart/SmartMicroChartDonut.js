@@ -33,6 +33,7 @@
    </script>   
      `;
  
+     
      class SmartMicroChartDonut extends HTMLElement {
          constructor() {
              super(); 
