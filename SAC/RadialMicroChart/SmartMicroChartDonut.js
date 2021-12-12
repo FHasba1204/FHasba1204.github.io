@@ -46,7 +46,7 @@
              _shadowRoot.querySelector("#oView").id = _id + "_oView";
 
              this._export_settings = {};
-             this._export_settings.date = "";
+             this._export_settings.percentage = 0;
 
              this.addEventListener("press", event => {
                
