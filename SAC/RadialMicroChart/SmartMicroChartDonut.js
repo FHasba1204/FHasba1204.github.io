@@ -193,7 +193,7 @@
         // 	widgetName = that._export_settings.title.split("|")[0];
         // }
         widgetName = "content_smartmicrochart";
-        // div = document.createElement('div');
+         div = document.createElement('div');
          div.slot = "content_" + widgetName;
 
         percentage = that_.percentage;
