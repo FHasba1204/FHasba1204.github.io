@@ -176,7 +176,7 @@
          set percentage(value) {
             _percentage = value;
              this._export_settings.percentage = value;
-             _firePropertiesChanged();
+             this._firePropertiesChanged();
          }
         
          static get observedAttributes() {
