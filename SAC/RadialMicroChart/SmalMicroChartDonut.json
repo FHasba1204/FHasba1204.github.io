@@ -16,13 +16,6 @@
 		"url": "https://fhasba1204.github.io/SAC/RadialMicroChart/SmartMicroChartDonut.js",
 		"integrity": "",
 		"ignoreIntegrity": true
-	  },
-	  {
-		"kind": "styling",
-		"tag": "com-voith-sac-smartmicrochart-aps",
-		"url": "https://fhasba1204.github.io/SAC/RadialMicroChart/aps_SmartMicroChartDonut.js",
-		"integrity": "",
-		"ignoreIntegrity": true
 	  }
 	],
 	"properties": {
