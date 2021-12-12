@@ -11,7 +11,7 @@
 	"webcomponents": [
 		{
 			"kind": "main",
-			"tag": "com-voith-smcchartdonut",
+			"tag": "com-voith-smalmicrochartdonut",
 			"url": "https://fhasba1204.github.io/SAC/RadialMicroChart/SmartMicroChartDonut.js",
 			"integrity": "",
 			"ignoreIntegrity": true
