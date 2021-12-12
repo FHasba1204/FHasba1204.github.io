@@ -45,7 +45,7 @@
 
              _shadowRoot.querySelector("#oView").id = _id + "_oView";
 
-             _shadowRoot.querySelector("RadialMicroChart").id = _id + "test";
+             _shadowRoot.querySelector("#SMCDonut_1").id = _id + "test";
 
              this._export_settings = {};
              this._export_settings.percentage = 0;
