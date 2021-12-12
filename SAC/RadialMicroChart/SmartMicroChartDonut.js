@@ -45,6 +45,8 @@
 
              _shadowRoot.querySelector("#oView").id = _id + "_oView";
 
+             _shadowRoot.querySelector("RadialMicroChart").id = _id + "test";
+
              this._export_settings = {};
              this._export_settings.percentage = 0;
 
@@ -158,10 +160,17 @@
          }
 
 
-        //  _firePropertiesChanged() {
-        //      this.percentage = 0;
+          _firePropertiesChanged() {
+              this.percentage = 0;
+        this.dispatchEvent(new CustomEvent("propertiesChanged", {
+            detail: {
+                properties: {
+                    percentage: this._export_settings.percentage
+                }
+            }
+        }));
             
-        //  }
+          }
          // SETTINGS
          get percentage() {
              return this._export_settings.percentage;
@@ -170,13 +179,6 @@
          set percentage(value) {
             _percentage = value;
              this._export_settings.percentage = value;
-             this.dispatchEvent(new CustomEvent("propertiesChanged", {
-                detail: {
-                    properties: {
-                        percentage: this._export_settings.percentage
-                    }
-                }
-            }));
          }
         
          static get observedAttributes() {
@@ -212,11 +214,13 @@
                 "use strict";
 
                 return Controller.extend("sap.suite.ui.microchart.sample.RadialMicroChartResponsive.Page", {
+                    
+                    
                     onPress: function (oEvent) {
                         //console.log(oView.byId("RadialMicroChart").getDateValue());
                         var chart =  oEvent.mParameters.id;
  //                       let Radialmicrochart = oView.chart('RadialMicroChart');
-                        _percentage = oEvent.oSource.mProperties.percentage;
+ //                       _percentage = oEvent.oSource.mProperties.percentage;
  //                       that._firePropertiesChanged();
                         console.log(_percentage);
 
