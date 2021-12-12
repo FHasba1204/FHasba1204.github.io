@@ -174,15 +174,8 @@
          }
 
          set percentage(value) {
-            _percentage = value;
+            this._percentage = value;
              this._export_settings.percentage = value;
-             this.dispatchEvent(new CustomEvent("propertiesChanged", {
-                detail: {
-                    properties: {
-                        percentage: _percentage
-                    }   
-                }}
-            ));
          }
         
          static get observedAttributes() {
@@ -218,7 +211,7 @@
                 "use strict";
 
                 return Controller.extend("sap.suite.ui.microchart.sample.RadialMicroChartResponsive.Page", {
-                    onButtonPressed: function (oEvent) {
+                    onPress: function (oEvent) {
                         //console.log(oView.byId("RadialMicroChart").getDateValue());
                         let Radialmicrochart = oView.getElementsByTagName('RadialMicroChart');
                         _percentage = oView.getElementsByTagName("RadialMicroChart").getPercentage();
