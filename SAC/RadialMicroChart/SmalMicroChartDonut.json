@@ -29,7 +29,7 @@
 			"default": "Donut"
 		},
         "percentage": {
-			"type": "float",
+			"type": "number",
 			"description": "Percentage",
 			"default": 0.0
 		}
@@ -40,14 +40,14 @@
 			"parameters": [
 				{
 					"name": "fPercentage",
-					"type": "float",
+					"type": "number",
 					"description": "The new percentage"
 				}
 			],
 			"body": "this.percentage = fPercentage;"
 		},
 		"getPercentage": {
-			"returnType": "float",
+			"returnType": "number",
 			"description": "Returns the percentage.",
 			"body": "return this.percentage;"
 		}
