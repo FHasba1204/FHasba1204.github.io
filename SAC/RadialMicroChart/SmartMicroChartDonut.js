@@ -163,7 +163,7 @@
              this.dispatchEvent(new CustomEvent("propertiesChanged", {
                  detail: {
                      properties: {
-                         percentage: _percentage
+                         percentage: this._export_settings.percentage
                      }
                  }
              }));
@@ -176,6 +176,7 @@
          set percentage(value) {
             _percentage = value;
              this._export_settings.percentage = value;
+             _firePropertiesChanged();
          }
         
          static get observedAttributes() {
@@ -216,7 +217,7 @@
                         var chart =  oEvent.mParameters.id;
  //                       let Radialmicrochart = oView.chart('RadialMicroChart');
                         _percentage = oEvent.oSource.mProperties.percentage;
-                        that._firePropertiesChanged();
+ //                       that._firePropertiesChanged();
                         console.log(_percentage);
 
                         this.settings = {};
