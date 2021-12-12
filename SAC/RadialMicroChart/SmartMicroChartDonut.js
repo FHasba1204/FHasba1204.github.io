@@ -176,6 +176,12 @@
          set percentage(value) {
             _percentage = value;
              this._export_settings.percentage = value;
+             this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                detail: {
+                    properties: {
+                        percentage: _percentage
+                }
+            }));
          }
          static get observedAttributes() {
              return [
