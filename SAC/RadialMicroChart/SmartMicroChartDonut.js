@@ -158,16 +158,10 @@
          }
 
 
-         _firePropertiesChanged() {
-             this.percentage = 0;
-             this.dispatchEvent(new CustomEvent("propertiesChanged", {
-                 detail: {
-                     properties: {
-                         percentage: this._export_settings.percentage
-                     }
-                 }
-             }));
-         }
+        //  _firePropertiesChanged() {
+        //      this.percentage = 0;
+            
+        //  }
          // SETTINGS
          get percentage() {
              return this._export_settings.percentage;
@@ -176,7 +170,13 @@
          set percentage(value) {
             _percentage = value;
              this._export_settings.percentage = value;
-             this._firePropertiesChanged();
+             this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                detail: {
+                    properties: {
+                        percentage: this._export_settings.percentage
+                    }
+                }
+            }));
          }
         
          static get observedAttributes() {
