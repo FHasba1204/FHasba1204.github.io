@@ -189,7 +189,7 @@
          }
          
      }
-    customElements.define("com-voith-smcchartdonut", SmartMicroChartDonut);
+    customElements.define("com-voith-smalmicrochartdonut", SmartMicroChartDonut);
 
     // UTILS
     function loadthis(that) {
