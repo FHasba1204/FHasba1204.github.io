@@ -159,7 +159,7 @@
 
 
          _firePropertiesChanged() {
-             this.date = "";
+             this.percentage = 0;
              this.dispatchEvent(new CustomEvent("propertiesChanged", {
                  detail: {
                      properties: {
@@ -213,12 +213,12 @@
                     onButtonPressed: function (oEvent) {
                         //console.log(oView.byId("RadialMicroChart").getDateValue());
                         let Radialmicrochart = oView.getElementsByTagName('RadialMicroChart');
-                        _percentage = oView.getElementsByTagName("RadialMicroChart").getPercentage().toString();
+                        _percentage = oView.getElementsByTagName("RadialMicroChart").getPercentage();
                         that._firePropertiesChanged();
                         console.log(_percentage);
 
                         this.settings = {};
-                        this.settings.percentage = "";
+                        this.settings.percentage = 0;
 
                         that.dispatchEvent(new CustomEvent("onStart", {
                             detail: {
