@@ -167,7 +167,7 @@
             return this._export_settings.height;
         }
         set height(value) {
-        	console.log("setHeight:" + height);
+        	console.log("setHeight:" + value);
             this._export_settings.height = value;
         }
 
@@ -175,7 +175,7 @@
             return this._export_settings.width;
         }
         set width(value) {
-        	console.log("setWidth:" + width);
+        	console.log("setWidth:" + value);
             this._export_settings.width = value;
         }
 

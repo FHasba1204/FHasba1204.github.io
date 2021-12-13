@@ -89,7 +89,7 @@
 	"getWidth": {
 		"returnType": "integer",
 		"description": "Returns the Width.",
-		"body": "return this.Width;"
+		"body": "return this.width;"
 	},
 
 	"getHeight": {
