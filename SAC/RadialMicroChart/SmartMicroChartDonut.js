@@ -192,7 +192,7 @@
         // if(typeof widgetName === "undefined") {
         // 	widgetName = that._export_settings.title.split("|")[0];
         // }
-        widgetName = "content_smartmicrochart";
+     //   widgetName = "content_smartmicrochart";
          div = document.createElement('div');
          div.slot = "content_" + widgetName;
 
