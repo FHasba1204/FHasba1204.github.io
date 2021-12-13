@@ -188,7 +188,7 @@
     function loadthis(that, changedProperties) {
         var that_ = that;
 
-        // widgetName = changedProperties.widgetName;
+         widgetName = changedProperties.widgetName;
         // if(typeof widgetName === "undefined") {
         // 	widgetName = that._export_settings.title.split("|")[0];
         // }
