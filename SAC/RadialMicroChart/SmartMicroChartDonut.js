@@ -30,6 +30,8 @@
             this._export_settings = {};
             this._export_settings.percentage = 0.0;
             this._export_settings.chartType = "";
+            this._export_settings.width = 90;
+            this._export_settings.height = 90;
 
             this.addEventListener("press", event => {
                 console.log('press');
@@ -201,7 +203,7 @@
         	console.log("--First Time --");
 
         	let div0 = document.createElement('div');   
-        	div0.innerHTML = '<?xml version="1.0"?><script id="oView_' + widgetName + '" name="oView_' + widgetName + '" type="sapui5/xmlview"><mvc:View xmlns="sap.suite.ui.microchart" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" controllerName="myView.Template"><l:VerticalLayout><l:HorizontalLayout><RadialMicroChart size="L" percentage="{' + widgetName + '>/percentage}" press="onPress" class="sapUiSmallMargin"></RadialMicroChart></l:HorizontalLayout></l:VerticalLayout></mvc:View></script>';
+        	div0.innerHTML = '<?xml version="1.0"?><script id="oView_' + widgetName + '" name="oView_' + widgetName + '" type="sapui5/xmlview"><mvc:View xmlns="sap.suite.ui.microchart" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.m" controllerName="myView.Template"><m:FlexBox id="chartContainer" width="{' + widgetName + '>/width'+ '}"px" height="{' + widgetName + '>/height'+ '}"px" renderType="Bare" class="sapUiSmallMargin"><m:items><RadialMicroChart size="Responsive" percentage="{' + widgetName + '>/percentage}" press="onPress" class="sapUiSmallMargin"></RadialMicroChart></m:items></m:FlexBox></mvc:View></script>';
         	_shadowRoot.appendChild(div0);  
 
             let div1 = document.createElement('div');            
@@ -247,11 +249,15 @@
 
                             this._oModel = new JSONModel({
                                 percentage: that._export_settings.percentage,
+                                width: that.clientWidth,
+                                height: thath.clientHeight,
                             });
                             sap.ui.getCore().setModel(this._oModel, that.widgetName);
                         } else {
                            var oModel = sap.ui.getCore().getModel(that.widgetName);
                             oModel.setProperty("/percentage", that._export_settings.percentage);
+                            oModel.setProperty("/width", that.clientWidth);
+                            oModel.setProperty("/height", that.clientHeight);
                         }
                     },
 
