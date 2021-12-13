@@ -201,7 +201,7 @@
         	console.log("--First Time --");
 
         	let div0 = document.createElement('div');   
-        	div0.innerHTML = '<?xml version="1.0"?><script id="oView_' + widgetName + '" name="oView_' + widgetName + '" type="sapui5/xmlview"><mvc:View xmlns="sap.suite.ui.microchart" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" controllerName="myView.Template"><l:VerticalLayout><l:HorizontalLayout><RadialMicroChart size="L" percentage="' + widgetName + '" press="onPress" class="sapUiSmallMargin"></RadialMicroChart></l:HorizontalLayout></l:VerticalLayout></mvc:View></script>';
+        	div0.innerHTML = '<?xml version="1.0"?><script id="oView_' + widgetName + '" name="oView_' + widgetName + '" type="sapui5/xmlview"><mvc:View xmlns="sap.suite.ui.microchart" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" controllerName="myView.Template"><l:VerticalLayout><l:HorizontalLayout><RadialMicroChart size="L" percentage="{' + widgetName + '>/percentage}" press="onPress" class="sapUiSmallMargin"></RadialMicroChart></l:HorizontalLayout></l:VerticalLayout></mvc:View></script>';
         	_shadowRoot.appendChild(div0);  
 
             let div1 = document.createElement('div');            
