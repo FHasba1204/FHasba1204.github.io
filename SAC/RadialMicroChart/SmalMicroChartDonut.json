@@ -35,13 +35,13 @@
 		"default": 0.0
 	},
 	"width": {
-		"type": "width",
-		"description": "integer",
+		"type": "integer",
+		"description": "Width",
 		"default": 90
 	},
 	"height": {
-		"type": "height",
-		"description": "integer",
+		"type": "integer",
+		"description": "Height",
 		"default": 90
 	}
 },
