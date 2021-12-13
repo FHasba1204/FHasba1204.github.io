@@ -61,6 +61,41 @@
 		"returnType": "number",
 		"description": "Returns the percentage.",
 		"body": "return this.percentage;"
+	},
+	"setHeight": {
+		"description": "Sets the Height.",
+		"parameters": [
+			{
+				"name": "fHeight",
+				"type": "integer",
+				"description": "The new Height"
+			}
+		],
+		"body": "this.height = fHeight;"
+	},
+
+	"setWidth": {
+		"description": "Sets the Width.",
+		"parameters": [
+			{
+				"name": "fWidth",
+				"type": "integer",
+				"description": "The new Width"
+			}
+		],
+		"body": "this.width = fWidth;"
+	},
+
+	"getWidth": {
+		"returnType": "integer",
+		"description": "Returns the Width.",
+		"body": "return this.Width;"
+	},
+
+	"getHeight": {
+		"returnType": "integer",
+		"description": "Returns the Height.",
+		"body": "return this.height;"
 	}
 },
 "events": {

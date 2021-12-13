@@ -163,6 +163,22 @@
             this._export_settings.percentage = value;
         }
 
+        get height() {
+            return this._export_settings.height;
+        }
+        set height(value) {
+        	console.log("setHeight:" + height);
+            this._export_settings.height = value;
+        }
+
+        get width() {
+            return this._export_settings.width;
+        }
+        set width(value) {
+        	console.log("setWidth:" + width);
+            this._export_settings.width = value;
+        }
+
         get charttype() {
             return this._export_settings.charttype;
         }
