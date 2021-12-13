@@ -38,6 +38,7 @@
             this._valuecolor.Error = sap.m.ValueColor.Error;
             this._valuecolor.Good = sap.m.ValueColor.Good;
             this._valuecolor.None = sap.m.ValueColor.None;
+            this._valuecolor.Neutral = sap.m.ValueColor.Neutral;
 
             this.addEventListener("press", event => {
                 console.log('press');
@@ -296,7 +297,7 @@
                         }
                     },
 
-                    Onpress : function(evt) {
+                    onPress : function(evt) {
 						//MessageToast.show("The GenericTile is pressed.");
 						that._firePropertiesChanged();
 						this.settings = {};
