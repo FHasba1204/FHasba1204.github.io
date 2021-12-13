@@ -34,10 +34,10 @@
             this._export_settings.height = 0;
 
             this._valuecolor = {};
-            this._valuecolor.Neutral = "sap.m.ValueColor.Neutral";
-            this._valuecolor.Error = "sap.m.ValueColor.Error";
-            this._valuecolor.Good = "sap.m.ValueColor.Good";
-            this._valuecolor.None = "sap.m.ValueColor.None";
+            this._valuecolor.Neutral = sap.m.ValueColor.Neutral;
+            this._valuecolor.Error = sap.m.ValueColor.Error;
+            this._valuecolor.Good = sap.m.ValueColor.Good;
+            this._valuecolor.None = sap.m.ValueColor.None;
 
             this.addEventListener("press", event => {
                 console.log('press');
