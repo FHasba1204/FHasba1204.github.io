@@ -203,7 +203,7 @@
         	console.log("--First Time --");
 
         	let div0 = document.createElement('div');   
-        	div0.innerHTML = '<?xml version="1.0"?><script id="oView_' + widgetName + '" name="oView_' + widgetName + '" type="sapui5/xmlview"><mvc:View xmlns="sap.suite.ui.microchart" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" controllerName="myView.Template"><m:FlexBox renderType="Bare" direction="Column" class="sapUiSmallMarginBegin"><m:items><m:FlexBox id="chartContainer" width="{' + widgetName + '>/width'+ '}"px" height="{' + widgetName + '>/height'+ '}"px" renderType="Bare" class="sapUiSmallMargin"><m:items><RadialMicroChart size="Responsive" percentage="{' + widgetName + '>/percentage}" press="onPress" class="sapUiSmallMargin"></RadialMicroChart></m:items></m:FlexBox></m:items></m:FlexBox></mvc:View></script>';
+        	div0.innerHTML = '<?xml version="1.0"?><script id="oView_' + widgetName + '" name="oView_' + widgetName + '" type="sapui5/xmlview"><mvc:View controllerName="myView.Template" xmlns="sap.suite.ui.microchart" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m"><m:FlexBox renderType="Bare" direction="Column" class="sapUiSmallMarginBegin"><m:items><m:FlexBox id="chartContainer" width="{' + widgetName + '>/width'+ '}"px" height="{' + widgetName + '>/height'+ '}"px" renderType="Bare" class="sapUiSmallMargin"><m:items><RadialMicroChart size="Responsive" percentage="{' + widgetName + '>/percentage}" press="onPress" class="sapUiSmallMargin"></RadialMicroChart></m:items></m:FlexBox></m:items></m:FlexBox></mvc:View></script>';
         	_shadowRoot.appendChild(div0);  
 
             let div1 = document.createElement('div');            
