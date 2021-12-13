@@ -29,12 +29,20 @@
 
             this._export_settings = {};
             this._export_settings.percentage = 0.0;
-            this._export_settings.chartType = "";
-            this._export_settings.width = 90;
-            this._export_settings.height = 90;
+            this._export_settings.valuecolor = "";
+            this._export_settings.width = 0;
+            this._export_settings.height = 0;
+
+            this._valuecolor = {};
+            this._valuecolor.Neutral = "sap.m.ValueColor.Neutral";
+            this._valuecolor.Error = "sap.m.ValueColor.Error";
+            this._valuecolor.Good = "sap.m.ValueColor.Good";
+            this._valuecolor.None = "sap.m.ValueColor.None";
 
             this.addEventListener("press", event => {
                 console.log('press');
+                var event = new Event("onPress");
+				this.dispatchEvent(event);
 
             });
 
@@ -179,17 +187,20 @@
             this._export_settings.width = value;
         }
 
-        get charttype() {
-            return this._export_settings.charttype;
+        get valuecolor() {
+            return this._export_settings.valuecolor;
         }
-        set charttype(value) {
-            this._export_settings.charttype = value;
+        set valuecolor(value) {
+            this._export_settings.valuecolor = value;
         }
 
         static get observedAttributes() {
             return [
                 "percentage",
-                "charttype"
+                "charttype",
+                "height",
+                "width",
+                "valuecolor"
             ];
         }
 
@@ -283,7 +294,7 @@
                     },
 
                     Onpress : function(evt) {
-						MessageToast.show("The GenericTile is pressed.");
+						//MessageToast.show("The GenericTile is pressed.");
 						that._firePropertiesChanged();
 						this.settings = {};
                         this.settings.percentage = "";

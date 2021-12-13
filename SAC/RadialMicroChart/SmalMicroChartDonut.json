@@ -24,10 +24,10 @@
 		"description": "For internal use",
 		"default": ""
 	  },
-	  "charttype": {
+	  "valuecolor": {
 		"type": "string",
-		"description": "Chart Type",
-		"default": "Donut"
+		"description": "Value Color",
+		"default": "None"
 	},
 	"percentage": {
 		"type": "number",
@@ -73,6 +73,12 @@
 		],
 		"body": "this.height = fHeight;"
 	},
+	
+	"getHeight": {
+		"returnType": "integer",
+		"description": "Returns the Height.",
+		"body": "return this.height;"
+	},
 
 	"setWidth": {
 		"description": "Sets the Width.",
@@ -92,10 +98,23 @@
 		"body": "return this.width;"
 	},
 
-	"getHeight": {
-		"returnType": "integer",
-		"description": "Returns the Height.",
-		"body": "return this.height;"
+
+	"getValueColor": {
+		"returnType": "string",
+		"description": "Returns the Value Color.",
+		"body": "return this.valuecolor;"
+	},
+
+	"setValueColor": {
+		"description": "Sets the Value Color (Neutral, Good, Critical, Error, None.",
+		"parameters": [
+			{
+				"name": "fColor",
+				"type": "string",
+				"description": "The new Value Color"
+			}
+		],
+		"body": "this.valuecolor = fColor;"
 	}
 },
 "events": {
