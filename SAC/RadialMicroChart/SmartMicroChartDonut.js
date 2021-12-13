@@ -271,8 +271,8 @@
             });
 
             //### THE APP: place the XMLView somewhere into DOM ###
-            console.log("widgetName Final:" + widgetName);
-            var foundIndex = Ar.findIndex(x => x.id == widgetName);
+            console.log("widgetName Final:" + that.widgetName);
+            var foundIndex = Ar.findIndex(x => x.id == that.widgetName);
             var divfinal = Ar[foundIndex].div;
             console.log(divfinal);
             
