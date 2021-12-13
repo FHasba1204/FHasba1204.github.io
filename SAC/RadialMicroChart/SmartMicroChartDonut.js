@@ -189,9 +189,9 @@
         var that_ = that;
 
          widgetName = changedProperties.widgetName;
-        // if(typeof widgetName === "undefined") {
-        // 	widgetName = that._export_settings.title.split("|")[0];
-        // }
+         if(typeof widgetName === "undefined") {
+         	widgetName = that_.widgetName;
+         }
      //   widgetName = "content_smartmicrochart";
          div = document.createElement('div');
          div.slot = "content_" + widgetName;
