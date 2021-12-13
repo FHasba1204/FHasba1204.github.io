@@ -277,8 +277,8 @@
                         } else {
                            var oModel = sap.ui.getCore().getModel(that.widgetName);
                             oModel.setProperty("/percentage", that._export_settings.percentage);
-                            oModel.setProperty("/width", that.clientWidth);
-                            oModel.setProperty("/height", that.clientHeight);
+                            oModel.setProperty("/width", that._export_settings.width);
+                            oModel.setProperty("/height", that._export_settings.height);
                         }
                     },
 
