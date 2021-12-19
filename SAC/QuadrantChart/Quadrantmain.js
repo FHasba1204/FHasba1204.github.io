@@ -64,7 +64,7 @@ var getScriptPromisify = (src) => {
       });
 
       this._props = {};
-//      this.render();
+      //      this.render();
     }
 
     async render() {
@@ -189,8 +189,10 @@ the idea is to fabricate an array of data points with random percentage and coun
         // position the groups at the four corners of the viz
         .attr('transform', (d, i) => `translate(${i % 2 === 0 ? 0 : width / 2} ${i < 2 ? 0 : height / 2})`);
 
+      const color = [{ color: "#fbb4ae" }, { color: "#b3cde3" }, { color: "#ccebc5" }, { color: "#decbe4" }];
+
       // for each quadrant add a rectangle and a label
-      quadrants
+      const quadr = quadrants
         .append('rect')
         .attr('x', 0)
         .attr('y', 0)
@@ -200,6 +202,13 @@ the idea is to fabricate an array of data points with random percentage and coun
         .attr('fill', (d, i) => (i === 2 ? 'hsl(0, 0%, 0%)' : 'hsl(0, 100%, 100%)'))
         // highlight the second and third quadrant with less transparency
         .attr('opacity', (d, i) => ((i === 1 || i === 2) ? 0.15 : 0.05));
+
+      d3.selectAll(this._shadowRoot.querySelector('rect'))
+        .data(color)
+        .join('rect')
+        .style('fill', function (d) {
+          return d.color;
+        });
 
       quadrants
         .append('text')
