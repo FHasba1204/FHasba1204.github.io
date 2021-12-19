@@ -50,13 +50,13 @@ var getScriptPromisify = (src) => {
   class QuadrantChart extends HTMLElement {
     constructor() {
       super();
-      let shadowRoot = this.attachShadow({ mode: "open" });
-      shadowRoot.appendChild(template.content.cloneNode(true));
+      this._shadowRoot = this.attachShadow({ mode: "open" });
+      this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-      this._root = shadowRoot.getElementById('rootquadrant');
+      this._root = this._shadowRoot.getElementById('rootquadrant');
 
-      this.$style = shadowRoot.querySelector('style');
-      this.$svg = shadowRoot.querySelector('svg');
+      this.$style = this._shadowRoot.querySelector('style');
+      this.$svg = this._shadowRoot.querySelector('svg');
 
       this.addEventListener("click", event => {
         var event = new Event("onClick");
@@ -145,9 +145,8 @@ the idea is to fabricate an array of data points with random percentage and coun
       // the chart ought to be wider than taller
       const width = 600 - (margin.left + margin.right);
       const height = 400 - (margin.top + margin.bottom);
-
       const svg = d3
-        .select('#rootquadrant')
+        .select(this._shadowRoot.querySelector('#rootquadrant'))
         .append('svg')
         .attr('viewBox', `0 0 ${width + (margin.left + margin.right)} ${height + (margin.top + margin.bottom)}`);
 
