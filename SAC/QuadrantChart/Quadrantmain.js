@@ -279,7 +279,8 @@ the idea is to fabricate an array of data points with random percentage and coun
 
       // remove the path describing the axes
       d3
-        .selectAll(this._shadowRoot.querySelector('.axis'))
+        .select(this._shadowRoot)
+        .selectAll('.axis')
         .select('path')
         .remove();
 
