@@ -44,7 +44,7 @@ var getScriptPromisify = (src) => {
     }
   }		
     </style>
-            <div class="viz"></div>
+            <div id="rootquadrant" class="viz"></div>
     `;
 
   class QuadrantChart extends HTMLElement {
@@ -52,6 +52,8 @@ var getScriptPromisify = (src) => {
       super();
       let shadowRoot = this.attachShadow({ mode: "open" });
       shadowRoot.appendChild(template.content.cloneNode(true));
+
+      this._root = this._shadowRoot.getElementById('root');
 
       this.$style = shadowRoot.querySelector('style');
       this.$svg = shadowRoot.querySelector('svg');
@@ -145,7 +147,7 @@ the idea is to fabricate an array of data points with random percentage and coun
       const height = 400 - (margin.top + margin.bottom);
 
       const svg = d3
-        .select('.viz')
+        .select('#rootquadrant')
         .append('svg')
         .attr('viewBox', `0 0 ${width + (margin.left + margin.right)} ${height + (margin.top + margin.bottom)}`);
 
