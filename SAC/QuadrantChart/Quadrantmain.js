@@ -203,7 +203,8 @@ the idea is to fabricate an array of data points with random percentage and coun
         // highlight the second and third quadrant with less transparency
         .attr('opacity', (d, i) => ((i === 1 || i === 2) ? 0.15 : 0.05));
 
-      d3.selectAll(this._shadowRoot.querySelector('rect'))
+      d3.select(this._shadowRoot)
+        .selectAll('rect')
         .data(color)
         .join('rect')
         .style('fill', function (d) {
@@ -356,7 +357,8 @@ the idea is to fabricate an array of data points with random percentage and coun
 
       // style both labels with a heavier weight
       d3
-        .selectAll(this._shadowRoot.querySelector('g.label text'))
+        .select(this._shadowRoot)
+        .selectAll('g.label text')
         .style('font-size', '0.65rem')
         .style('font-weight', '600')
         .style('letter-spacing', '0.05rem');
