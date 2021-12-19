@@ -53,7 +53,7 @@ var getScriptPromisify = (src) => {
       let shadowRoot = this.attachShadow({ mode: "open" });
       shadowRoot.appendChild(template.content.cloneNode(true));
 
-      this._root = this._shadowRoot.getElementById('rootquadrant');
+      this._root = shadowRoot.getElementById('rootquadrant');
 
       this.$style = shadowRoot.querySelector('style');
       this.$svg = shadowRoot.querySelector('svg');
