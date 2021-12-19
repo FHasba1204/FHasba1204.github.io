@@ -62,6 +62,7 @@ var getScriptPromisify = (src) => {
       });
 
       this._props = {};
+      this.render();
     }
 
     async render() {
