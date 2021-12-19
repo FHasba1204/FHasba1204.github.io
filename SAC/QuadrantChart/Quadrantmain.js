@@ -269,13 +269,13 @@ the idea is to fabricate an array of data points with random percentage and coun
 
       // remove the path describing the axes
       d3
-        .selectAll('.axis')
+        .selectAll(this._shadowRoot.querySelector('.axis'))
         .select('path')
         .remove();
 
       // style the ticks to be shorter
       d3
-        .select('.axis-count')
+        .select(this._shadowRoot.querySelector('.axis-count'))
         .selectAll('line')
         .attr('y2', 5);
 
