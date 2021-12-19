@@ -64,7 +64,7 @@ var getScriptPromisify = (src) => {
       });
 
       this._props = {};
-      this.render();
+//      this.render();
     }
 
     async render() {
@@ -280,19 +280,19 @@ the idea is to fabricate an array of data points with random percentage and coun
         .attr('y2', 5);
 
       d3
-        .select('.axis-percentage')
+        .select(this._shadowRoot.querySelector('.axis-percentage'))
         .selectAll('line')
         .attr('x2', -4);
 
       d3
-        .selectAll('.axis')
+        .selectAll(this._shadowRoot.querySelector('.axis'))
         .selectAll('text')
         .attr('font-size', '0.55rem');
 
       // grid
       // include dotted lines for each tick and for both axes
       d3
-        .select('.axis-count')
+        .select(this._shadowRoot.querySelector('.axis-count'))
         .selectAll('g.tick')
         .append('path')
         .attr('d', `M 0 0 v -${height}`)
@@ -302,7 +302,7 @@ the idea is to fabricate an array of data points with random percentage and coun
         .attr('opacity', 0.3);
 
       d3
-        .select('.axis-percentage')
+        .select(this._shadowRoot.querySelector('.axis-percentage'))
         .selectAll('g.tick')
         .append('path')
         .attr('d', `M 0 0 h ${width}`)
@@ -316,13 +316,13 @@ the idea is to fabricate an array of data points with random percentage and coun
       // add a group to position the label where needed
       // for the percentage label, this allows to also modify the transform-origin as to rotate the label from the center of the axis
       d3
-        .select('.axis-count')
+        .select(this._shadowRoot.querySelector('.axis-count'))
         .append('g')
         .attr('class', 'label label-count')
         .attr('transform', `translate(${width / 2} ${margin.bottom})`);
 
       d3
-        .select('g.label-count')
+        .select(this._shadowRoot.querySelector('g.label-count'))
         .append('text')
         .attr('x', 0)
         .attr('y', 0)
@@ -330,13 +330,13 @@ the idea is to fabricate an array of data points with random percentage and coun
         .attr('text-anchor', 'middle');
 
       d3
-        .select('.axis-percentage')
+        .select(this._shadowRoot.querySelector('.axis-percentage'))
         .append('g')
         .attr('class', 'label label-percentage')
         .attr('transform', `translate(-${margin.left} ${height / 2})`);
 
       d3
-        .select('g.label-percentage')
+        .select(this._shadowRoot.querySelector('g.label-percentage'))
         .append('text')
         .attr('x', 0)
         .attr('y', 0)
@@ -347,7 +347,7 @@ the idea is to fabricate an array of data points with random percentage and coun
 
       // style both labels with a heavier weight
       d3
-        .selectAll('g.label text')
+        .selectAll(this._shadowRoot.querySelector('g.label text'))
         .style('font-size', '0.65rem')
         .style('font-weight', '600')
         .style('letter-spacing', '0.05rem');
