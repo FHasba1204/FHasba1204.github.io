@@ -1,5 +1,5 @@
 (function()  {
-    let template = document.createElement('QuadrantTemplate');
+    let template = document.createElement('template');
     template.innerHTML = `
     <style>
     * {
