@@ -42,7 +42,7 @@
             <div class="viz"></div>
     `;
 
-    class Box extends HTMLElement {
+    class QuadrantChart extends HTMLElement {
 		constructor() {
 			super(); 
 			let shadowRoot = this.attachShadow({mode: "open"});
@@ -560,5 +560,5 @@ const legend = [
 			this.render();
 		}
 	}	
-	customElements.define("com-demo-gauge", Box);
+	customElements.define("com-voith-quadrantchart", QuadrantChart);
 })();

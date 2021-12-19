@@ -12,7 +12,7 @@
 		{
 			"kind": "main",
 			"tag": "com-voith-quadrantchart",
-			"url": "https://fhasba1204.github.io/SAC/QuadrantChart/quadrant.js",
+			"url": "https://fhasba1204.github.io/SAC/QuadrantChart/Quadrantmain.js",
 			"integrity": "",
 			"ignoreIntegrity": true
 		}
@@ -33,22 +33,7 @@
 		}
 	},
 	"methods": {
-		"setValue": {
-			"description": "Sets the Google Sheets Stock value.",
-			"parameters": [
-				{
-					"name": "newValue",
-					"type": "string",
-					"description": "Google Sheets Value"
-				},
-				{
-					"name": "newFormula",
-					"type": "string",
-					"description": "Google Sheets Formula"
-				}
-			],
-			"body": "this.value = newValue; this.formula = newFormula;"
-		},
+
 		"getValue": {
 			"returnType": "string",
 			"description": "Returns the Google Sheets Stock value.",
