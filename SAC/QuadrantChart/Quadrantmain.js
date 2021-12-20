@@ -190,7 +190,9 @@ the idea is to fabricate an array of data points with random percentage and coun
         .append('g')
         .attr('class', 'quadrant')
         // position the groups at the four corners of the viz
-        .attr('transform', ({count, percentage},i) => `translate(${i % 2 === 0 ? 0 : countScale(0)} ${i < 2 ? 0 : percentageScale(0)})`);
+        .attr('transform', ({count, percentage},i) => (counts.min < 0 && percentages.min < 0) ? 
+        `translate(${i % 2 === 0 ? 0 : countScale(0)} ${i < 2 ? 0 : percentageScale(0)})`:
+        `translate(${i % 2 === 0 ? 0 : width / 2} ${i < 2 ? 0 : height / 2})`);
 
       const color = [{ color: "#fbb4ae" }, { color: "#b3cde3" }, { color: "#ccebc5" }, { color: "#decbe4" }];
 
@@ -199,8 +201,12 @@ the idea is to fabricate an array of data points with random percentage and coun
         .append('rect')
         .attr('x', 0)
         .attr('y', 0)
-        .attr('width', ({count, percentage}, i) => ((i === 0 || i === 2) ? width - (countScale(counts.max) - countScale(0))  : countScale(counts.max) - countScale(0)))
-        .attr('height', ({count, percentage}, i) => ((i === 0 || i === 1) ? height - (height - percentageScale(0))  : height - percentageScale(0)))
+        .attr('width', ({count, percentage}, i) => (counts.min < 0 && percentages.min < 0) ?
+        ((i === 0 || i === 2) ? width - (countScale(counts.max) - countScale(0))  : 
+        countScale(counts.max) - countScale(0)) : width / 2)
+        .attr('height', ({count, percentage}, i) => (counts.min < 0 && percentages.min < 0) ?
+        ((i === 0 || i === 1) ? height - (height - percentageScale(0))  : 
+        height - percentageScale(0)):  height / 2)
         // include a darker shade for the third quadrant
         .attr('fill', (d, i) => (i === 2 ? 'hsl(0, 0%, 0%)' : 'hsl(0, 100%, 100%)'))
         // highlight the second and third quadrant with less transparency
@@ -463,7 +469,7 @@ the idea is to fabricate an array of data points with random percentage and coun
 
           dashedLines
             .append('path')
-            .attr('d', ({ percentage }) => `M 0 0 v ${percentageScale(percentages.max - percentage) + percentageScale(percmin)}`);
+            .attr('d', ({percentage}) => `M 0 0 v ${percentageScale(percentages.max - percentage) + percentageScale(percmin)}`);
 
           dashedLines
             .append('path')
