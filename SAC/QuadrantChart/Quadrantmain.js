@@ -469,7 +469,8 @@ the idea is to fabricate an array of data points with random percentage and coun
 
           dashedLines
             .append('path')
-            .attr('d', ({percentage}) => `M 0 0 v ${percentageScale(percentages.max - percentage) + percentageScale(percmin)}`);
+            .attr('d', ({percentage}) => (percentages.min < 0) ? `M 0 0 v ${percentageScale(percentages.max - percentage) + 
+              percentageScale(percmin)}` : `M 0 0 v ${percentageScale(percentages.max - percentage)}`);
 
           dashedLines
             .append('path')
@@ -483,7 +484,9 @@ the idea is to fabricate an array of data points with random percentage and coun
 
           const labelCount = labels
             .append('g')
-            .attr('transform', ({ percentage }) => `translate(0 ${percentageScale(percentages.max - percentage) + percentageScale(percmin)})`);
+            .attr('transform', ({percentage}) => (percentages.min < 0) ? 
+            `translate(0 ${percentageScale(percentages.max - percentage) + percentageScale(percmin)})`
+            : `translate(0 ${percentageScale(percentages.max - percentage)})`);
 
           const textCount = labelCount
             .append('text')
