@@ -28,7 +28,7 @@ var getScriptPromisify = (src) => {
     max-width: 900px;
   }
   svg text {
-    font-family: Arial, monospace;
+    font-family: "72", Arial, monospace;
     fill: currentColor;
     text-shadow: 0 0 1px hsla(0, 0%, 0%, 0.25);
     letter-spacing: 0.01rem;
