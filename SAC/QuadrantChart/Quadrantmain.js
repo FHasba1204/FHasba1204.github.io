@@ -92,6 +92,10 @@ the idea is to fabricate an array of data points with random percentage and coun
         },
       ];
 
+
+      var hidelable = false;
+      var hidelegend = false;
+
       // utility functions
       const randomBetween = (min, max) => Math.floor(Math.random() * (max - min) + min);
       const randomItem = arr => arr[Math.floor(Math.random() * arr.length)];
@@ -222,8 +226,10 @@ the idea is to fabricate an array of data points with random percentage and coun
 
       quadrants
         .append('text')
-        .attr('x', width / 4)
-        .attr('y', height / 4)
+        .attr('x', ({count, percentage}, i) => (counts.min < 0 && percentages.min < 0) ?
+        ((i === 0 || i === 2) ? width - (countScale(counts.max) - countScale(0))  : 
+        countScale(counts.max) - countScale(0)) / 4 : (width / 2) / 4)
+        .attr('y', 10)
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
         .text(d => d)
@@ -237,7 +243,8 @@ the idea is to fabricate an array of data points with random percentage and coun
       const legendGroup = group
         .append('g')
         .attr('class', 'legend')
-        .attr('transform', `translate(${width + 20} 10)`);
+        .attr('transform', `translate(${width + 20} 10)`)
+        .style('visibility', (i) => (hidelegend == true) ? 'hidden' : 'visible');
         //.attr('transform', `translate(${countScale(8500)} ${percentageScale(16)})`);
 
       // separate the groups vertically
@@ -408,7 +415,8 @@ the idea is to fabricate an array of data points with random percentage and coun
         .attr('dominant-baseline', 'central')
         .style('font-size', '0.55rem')
         .style('letter-spacing', '0.05rem')
-        .style('pointer-events', 'none');
+        .style('pointer-events', 'none')
+        .style('visibility', (i) => (hidelable == true) ? 'hidden' : 'visible');
 
 
       // on hover highlight the data point
@@ -423,7 +431,8 @@ the idea is to fabricate an array of data points with random percentage and coun
             .transition()
             .attr('transform', 'translate(12 0)')
             .style('color', 'hsl(230, 29%, 19%)')
-            .style('text-shadow', 'none');
+            .style('text-shadow', 'none')
+            .style('visibility', 'visible');
 
           /* as the first child of the group add another group in which to gather the elements making up the tooltip
           - rectangle faking the text's background
@@ -471,8 +480,7 @@ the idea is to fabricate an array of data points with random percentage and coun
 
           dashedLines
             .append('path')
-            .attr('d', ({percentage}) => (percentages.min < 0) ? `M 0 0 v ${percentageScale(percentages.max - percentage) + 
-              percentageScale(percmin)}` : `M 0 0 v ${percentageScale(percentages.max - percentage)}`);
+            .attr('d', ({percentage}) => `M 0 0 v ${(height - percentageScale(percentage))}`);
 
           dashedLines
             .append('path')
@@ -486,9 +494,7 @@ the idea is to fabricate an array of data points with random percentage and coun
 
           const labelCount = labels
             .append('g')
-            .attr('transform', ({percentage}) => (percentages.min < 0) ? 
-            `translate(0 ${percentageScale(percentages.max - percentage) + percentageScale(percmin)})`
-            : `translate(0 ${percentageScale(percentages.max - percentage)})`);
+            .attr('transform', `translate(0 ${(height - percentageScale(percentage))})`);
 
           const textCount = labelCount
             .append('text')
@@ -561,7 +567,8 @@ the idea is to fabricate an array of data points with random percentage and coun
             .delay(100)
             .attr('transform', 'translate(0 0)')
             .style('color', 'inherit')
-            .style('text-shadow', 'inherit');
+            .style('text-shadow', 'inherit')
+            .style('visibility', 'hidden');
 
           // remove the tooltip after rendering it fully transparent
           d3
