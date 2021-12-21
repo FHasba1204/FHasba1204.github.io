@@ -228,7 +228,7 @@ the idea is to fabricate an array of data points with random percentage and coun
         .append('text')
         .attr('x', ({count, percentage}, i) => (counts.min < 0 && percentages.min < 0) ?
         ((i === 0 || i === 2) ? width - (countScale(counts.max) - countScale(0))  : 
-        countScale(counts.max) - countScale(0)) / 4 : (width / 2) / 4)
+        countScale(counts.max) - countScale(0)) / 4 : (width / 4))
         .attr('y', 10)
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
