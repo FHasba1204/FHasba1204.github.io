@@ -494,7 +494,7 @@ the idea is to fabricate an array of data points with random percentage and coun
 
           const labelCount = labels
             .append('g')
-            .attr('transform', `translate(0 ${(height - percentageScale(percentage))})`);
+            .attr('transform', ({percentage}) => `translate(0 ${(height - percentageScale(percentage))})`);
 
           const textCount = labelCount
             .append('text')
