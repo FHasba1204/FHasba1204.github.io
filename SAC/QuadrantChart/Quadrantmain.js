@@ -28,10 +28,10 @@ var getScriptPromisify = (src) => {
     max-width: 900px;
   }
   svg text {
-    font-family: "72", Arial, monospace;
+    font-family: '72-Web', Arial, monospace;
     fill: currentColor;
-    text-shadow: 0 0 1px hsla(0, 0%, 0%, 0.25);
-    letter-spacing: 0.01rem;
+    font-size: 10px;
+    fill: rgb(166, 168, 171);
   }
   
   /* animation for the path elements included through the tooltip
@@ -237,7 +237,8 @@ the idea is to fabricate an array of data points with random percentage and coun
       const legendGroup = group
         .append('g')
         .attr('class', 'legend')
-        .attr('transform', `translate(${countScale(8500)} ${percentageScale(16)})`);
+        .attr('transform', `translate(${width + 20} 10)`);
+        //.attr('transform', `translate(${countScale(8500)} ${percentageScale(16)})`);
 
       // separate the groups vertically
       const legendItems = legendGroup
@@ -297,12 +298,12 @@ the idea is to fabricate an array of data points with random percentage and coun
       d3
         .select(this._shadowRoot.querySelector('.axis-count'))
         .selectAll('line')
-        .attr('y2', 5);
+        .attr('y2', 3);
 
       d3
         .select(this._shadowRoot.querySelector('.axis-percentage'))
         .selectAll('line')
-        .attr('x2', -4);
+        .attr('x2', -3);
 
       d3
         .selectAll(this._shadowRoot.querySelector('.axis'))
@@ -371,7 +372,8 @@ the idea is to fabricate an array of data points with random percentage and coun
         .selectAll('g.label text')
         .style('font-size', '0.65rem')
         .style('font-weight', '600')
-        .style('letter-spacing', '0.05rem');
+        .style('letter-spacing', '0.05rem')
+        .style('fill', '#000000');
 
 
       // data points
@@ -462,9 +464,9 @@ the idea is to fabricate an array of data points with random percentage and coun
             .attr('stroke', 'hsl(227, 9%, 81%)')
             .attr('stroke-width', 2)
             // have the animation move the path with a stroke-dashoffset considering the cumulative value of a dash and an empty space
-            .attr('stroke-dasharray', '7 4')
+            .attr('stroke-dasharray', '7 4');
             // animate the path elements to perennially move toward the axes
-            .style('animation', 'dashOffset 1.5s linear infinite');
+          //  .style('animation', 'dashOffset 1.5s linear infinite')
 
 
           dashedLines
