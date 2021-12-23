@@ -181,16 +181,17 @@ the idea is to fabricate an array of data points with random percentage and coun
       // quadrants and labels
       // position four rectangles and text elements to divvy up the larger shape in four sections
       const quad = [
-        'Assess',
-        'Adopt',
-        'Avoid',
-        'Analyze',
+        {label:'Assess',  color: '#fbb4ae'},
+        {label:'Adopt',   color: '#b3cde3'},
+        {label:'Avoid',   color: '#ccebc5'},
+        {label:'Analyze', color: '#decbe4'}, // add more text
       ];
 
       const quadrantsGroup = group
         .append('g')
         .attr('class', 'quadrants');
 
+      const index = d3.local();
       // include one group for each quadrant
       const quadrants = quadrantsGroup
         .selectAll('g.quadrant')
@@ -201,44 +202,63 @@ the idea is to fabricate an array of data points with random percentage and coun
         // position the groups at the four corners of the viz
         .attr('transform', ({ count, percentage }, i) => (counts.min < 0 && percentages.min < 0) ?
           `translate(${i % 2 === 0 ? 0 : countScale(0)} ${i < 2 ? 0 : percentageScale(0)})` :
-          `translate(${i % 2 === 0 ? 0 : width / 2} ${i < 2 ? 0 : height / 2})`);
-
-      const color = [{ color: "#fbb4ae" }, { color: "#b3cde3" }, { color: "#ccebc5" }, { color: "#decbe4" }];
-
-      // for each quadrant add a rectangle and a label
-      quadrants
-        .append('rect')
-        .attr('x', 0)
-        .attr('y', 0)
-        .data(color)
-        .join('rect')
-        .attr('width', ({ count, percentage }, i) => (counts.min < 0 && percentages.min < 0) ?
-          ((i === 0 || i === 2) ? width - (countScale(counts.max) - countScale(0)) :
-            countScale(counts.max) - countScale(0)) : width / 2)
-        .attr('height', ({ count, percentage }, i) => (counts.min < 0 && percentages.min < 0) ?
-          ((i === 0 || i === 1) ? height - (height - percentageScale(0)) :
-            height - percentageScale(0)) : height / 2)
-        // include a darker shade for the third quadrant
-        .attr('fill', (d, i) => (i === 2 ? 'hsl(0, 0%, 0%)' : 'hsl(0, 100%, 100%)'))
-        // highlight the second and third quadrant with less transparency
-        .attr('opacity', (d, i) => ((i === 1 || i === 2) ? 0.45 : 0.65))
-        .style('fill', function (d) {
-          return d.color
-        });
-
-      quadrants
-        .append('text')
-        .attr('x', ({ count, percentage }, i) => (counts.min < 0 && percentages.min < 0) ?
-          ((i === 0 || i === 2) ? width - (countScale(counts.max) - countScale(0)) :
-            countScale(counts.max) - countScale(0)) / 4 : (width / 4))
-        .attr('y', 10)
-        .attr('text-anchor', 'middle')
-        .attr('dominant-baseline', 'middle')
-        .text(d => d)
-        .style('text-transform', 'uppercase')
-        .style('font-weight', '300')
-        .style('font-size', '0.9rem')
-        .attr('opacity', 0.9);
+          `translate(${i % 2 === 0 ? 0 : width / 2} ${i < 2 ? 0 : height / 2})`)
+          .each(function (d, i)
+		
+          // for each quadrant add a rectangle and a label
+           {
+            let parent = d3.select(this); // g.quadrants
+                index.set(this, i);
+              
+            // background rectangle width fill color
+            let rect = 
+              parent.append('rect')
+              .attr('width', width / 2).attr("height", height / 2)
+              .attr("fill", d.color)
+               .attr('width', (d, i) =>(index.get(this) === 0 || 
+               index.get(this) === 2) ? countScale(0) :
+                (index.get(this) === 1 || index.get(this) === 3) ?
+                  width - countScale(0) : width / 2)
+                  .attr('height', (d, i) =>(index.get(this) === 0 || 
+               index.get(this) === 1) ? percentageScale(0) :
+                (index.get(this) === 2 || index.get(this) === 3) ?
+                  height - percentageScale(0) : height / 2)
+              .attr('opacity', (d, i) => ((index.get(this) === 1 || index.get(this) === 2) ? 0.45 : 0.65));
+            
+            let rectsel = parent
+              .selectAll('rect');
+            
+            let rectprop = rect.node().getBBox();
+            console.log("Width: "+rectprop.width);
+            // insert label rectangle and label text in sequence
+            let labelRect = 
+            parent.
+            append('rect').attr("rx", 4).attr("fill", 'white');
+            let label = 
+            parent.
+            append("text")
+            .text(d.label)
+            .attr("text-anchor", 'middle')
+            .style('text-transform', 'uppercase')
+            .style('font-weight', '300')
+            .style('font-size', '0.55rem')
+             .attr('opacity', 0.9)
+            .attr("x", rectprop.width / 2);
+            
+            // calculate label box width native api: getBBox or getBoundingClientRect
+            // https://developer.mozilla.org/en-US/docs/Web/API/SVGGraphicsElement/getBBox
+            // https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+            let labelBox = label.node().getBBox(); // or label.node().getBoundingClientRect()
+          
+            
+            // assign label text and label rectangle appropriate position
+            labelRect.attr("width", labelBox.width + 10)
+              .attr("height", labelBox.height + 10)
+              .attr("x", (rectprop.width - (labelBox.width + 10)) / 2);
+            
+            label.attr('y', labelBox.height + 5);
+            }
+          );
 
       // legend
       // include the categories in the bottom right corner of the viz
