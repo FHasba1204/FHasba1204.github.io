@@ -73,6 +73,8 @@ starting from an object describing the possible categories and matching colors
 the idea is to fabricate an array of data points with random percentage and count values
 */
       await getScriptPromisify('https://fhasba1204.github.io/SAC/D3library/d3.v7.min.js')
+      
+      
       const legend = [
         {
           name: 'Purple',
@@ -112,7 +114,7 @@ the idea is to fabricate an array of data points with random percentage and coun
       };
       const counts = {
         min: 0,
-        max: 10000,
+        max: 100,
       };
 
 
@@ -202,8 +204,16 @@ the idea is to fabricate an array of data points with random percentage and coun
         // position the groups at the four corners of the viz
         .attr('transform', ({ count, percentage }, i) => (counts.min < 0 && percentages.min < 0) ?
           `translate(${i % 2 === 0 ? 0 : countScale(0)} ${i < 2 ? 0 : percentageScale(0)})` :
+          (counts.min < 0 || percentages.min < 0) ?
+          (counts.min < 0) ?
+          `translate(${(i % 2 === 0) ? 0 : countScale(0)}
+          ${ i < 2 ? 0 : height / 2 })` :
+          (percentages.min < 0) ?
+          `translate(${(i < 2) ? 0 : width / 2}
+          ${ i % 2 === 0 ? 0 : percentageScale(0)})` :
+          `translate(${i % 2 === 0 ? 0 : width / 2} ${i < 2 ? 0 : height / 2})` :
           `translate(${i % 2 === 0 ? 0 : width / 2} ${i < 2 ? 0 : height / 2})`)
-          .each(function (d, i)
+				.each(function (d, i)
 		
           // for each quadrant add a rectangle and a label
            {
@@ -211,18 +221,40 @@ the idea is to fabricate an array of data points with random percentage and coun
                 index.set(this, i);
               
             // background rectangle width fill color
+            // if min scales are negative then position the 
+            // quandrant to the x-0 and y-0
+            // else check which axis has negative min and
+            // position the quadrant to x or y 0 scale
             let rect = 
               parent.append('rect')
-              .attr('width', width / 2).attr("height", height / 2)
               .attr("fill", d.color)
-               .attr('width', (d, i) =>(index.get(this) === 0 || 
-               index.get(this) === 2) ? countScale(0) :
-                (index.get(this) === 1 || index.get(this) === 3) ?
-                  width - countScale(0) : width / 2)
-                  .attr('height', (d, i) =>(index.get(this) === 0 || 
-               index.get(this) === 1) ? percentageScale(0) :
-                (index.get(this) === 2 || index.get(this) === 3) ?
-                  height - percentageScale(0) : height / 2)
+               .attr('width', function (d, i) {
+               if (percentages.min < 0 && counts.min < 0)
+               {
+               if (index.get(this) === 0 || index.get(this) === 2)
+               {return countScale(0)} else
+               {return width - countScale(0)}
+               }
+               if (counts.min < 0) 
+               {if (index.get(this) === 0 || index.get(this) === 2)
+               {return countScale(0)} else { return width - countScale(0)}
+               } else {return width / 2}
+               }
+                )
+               .attr('height', function (d, i) {
+               if (percentages.min < 0 && counts.min < 0)
+               {
+               if (index.get(this) === 0 || index.get(this) === 1)
+               {return percentageScale(0)} else
+               {return height - percentageScale(0)}
+               }
+               else if (percentages.min < 0) 
+               {if (index.get(this) === 0 || index.get(this) === 2)
+               {return percentageScale(0)} else if
+               (index.get(this) === 1 || index.get(this) === 3){ 
+               return height - percentageScale(0)}
+               } else {return height / 2}
+               })
               .attr('opacity', (d, i) => ((index.get(this) === 1 || index.get(this) === 2) ? 0.45 : 0.65));
             
             let rectsel = parent
