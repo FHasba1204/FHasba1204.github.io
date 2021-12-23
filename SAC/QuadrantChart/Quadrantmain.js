@@ -93,8 +93,13 @@ the idea is to fabricate an array of data points with random percentage and coun
       ];
 
 
-      var hidelable = false;
-      var hidelegend = false;
+      const dataLabelVisible = false;
+      const legendVisible = true;
+      const xLabelVisible = false;
+      const yLabelVisible = false;
+
+      const xLabel = "User Count";
+      const yLabel = "Satisfaction Percentage";
 
       // utility functions
       const randomBetween = (min, max) => Math.floor(Math.random() * (max - min) + min);
@@ -194,41 +199,38 @@ the idea is to fabricate an array of data points with random percentage and coun
         .append('g')
         .attr('class', 'quadrant')
         // position the groups at the four corners of the viz
-        .attr('transform', ({count, percentage},i) => (counts.min < 0 && percentages.min < 0) ? 
-        `translate(${i % 2 === 0 ? 0 : countScale(0)} ${i < 2 ? 0 : percentageScale(0)})`:
-        `translate(${i % 2 === 0 ? 0 : width / 2} ${i < 2 ? 0 : height / 2})`);
+        .attr('transform', ({ count, percentage }, i) => (counts.min < 0 && percentages.min < 0) ?
+          `translate(${i % 2 === 0 ? 0 : countScale(0)} ${i < 2 ? 0 : percentageScale(0)})` :
+          `translate(${i % 2 === 0 ? 0 : width / 2} ${i < 2 ? 0 : height / 2})`);
 
       const color = [{ color: "#fbb4ae" }, { color: "#b3cde3" }, { color: "#ccebc5" }, { color: "#decbe4" }];
 
       // for each quadrant add a rectangle and a label
-      const quadr = quadrants
+      quadrants
         .append('rect')
         .attr('x', 0)
         .attr('y', 0)
-        .attr('width', ({count, percentage}, i) => (counts.min < 0 && percentages.min < 0) ?
-        ((i === 0 || i === 2) ? width - (countScale(counts.max) - countScale(0))  : 
-        countScale(counts.max) - countScale(0)) : width / 2)
-        .attr('height', ({count, percentage}, i) => (counts.min < 0 && percentages.min < 0) ?
-        ((i === 0 || i === 1) ? height - (height - percentageScale(0))  : 
-        height - percentageScale(0)):  height / 2)
+        .data(color)
+        .join('rect')
+        .attr('width', ({ count, percentage }, i) => (counts.min < 0 && percentages.min < 0) ?
+          ((i === 0 || i === 2) ? width - (countScale(counts.max) - countScale(0)) :
+            countScale(counts.max) - countScale(0)) : width / 2)
+        .attr('height', ({ count, percentage }, i) => (counts.min < 0 && percentages.min < 0) ?
+          ((i === 0 || i === 1) ? height - (height - percentageScale(0)) :
+            height - percentageScale(0)) : height / 2)
         // include a darker shade for the third quadrant
         .attr('fill', (d, i) => (i === 2 ? 'hsl(0, 0%, 0%)' : 'hsl(0, 100%, 100%)'))
         // highlight the second and third quadrant with less transparency
-        .attr('opacity', (d, i) => ((i === 1 || i === 2) ? 0.15 : 0.05));
-
-      d3.select(this._shadowRoot)
-        .selectAll('rect')
-        .data(color)
-        .join('rect')
+        .attr('opacity', (d, i) => ((i === 1 || i === 2) ? 0.45 : 0.65))
         .style('fill', function (d) {
-          return d.color;
+          return d.color
         });
 
       quadrants
         .append('text')
-        .attr('x', ({count, percentage}, i) => (counts.min < 0 && percentages.min < 0) ?
-        ((i === 0 || i === 2) ? width - (countScale(counts.max) - countScale(0))  : 
-        countScale(counts.max) - countScale(0)) / 4 : (width / 4))
+        .attr('x', ({ count, percentage }, i) => (counts.min < 0 && percentages.min < 0) ?
+          ((i === 0 || i === 2) ? width - (countScale(counts.max) - countScale(0)) :
+            countScale(counts.max) - countScale(0)) / 4 : (width / 4))
         .attr('y', 10)
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
@@ -244,8 +246,8 @@ the idea is to fabricate an array of data points with random percentage and coun
         .append('g')
         .attr('class', 'legend')
         .attr('transform', `translate(${width + 20} 10)`)
-        .style('visibility', (i) => (hidelegend == true) ? 'hidden' : 'visible');
-        //.attr('transform', `translate(${countScale(8500)} ${percentageScale(16)})`);
+        .style('visibility', (i) => (legendVisible == false) ? 'hidden' : 'visible');
+      //.attr('transform', `translate(${countScale(8500)} ${percentageScale(16)})`);
 
       // separate the groups vertically
       const legendItems = legendGroup
@@ -354,8 +356,9 @@ the idea is to fabricate an array of data points with random percentage and coun
         .append('text')
         .attr('x', 0)
         .attr('y', 0)
-        .text('User Count')
-        .attr('text-anchor', 'middle');
+        .text(xLabel)
+        .attr('text-anchor', 'middle')
+        .style('visibility', (i) => (xLabelVisible == true) ? 'hidden' : 'visible');
 
       d3
         .select(this._shadowRoot.querySelector('.axis-percentage'))
@@ -368,10 +371,11 @@ the idea is to fabricate an array of data points with random percentage and coun
         .append('text')
         .attr('x', 0)
         .attr('y', 0)
-        .text('Satisfaction Percentage')
+        .text(yLabel)
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'hanging')
-        .attr('transform', 'rotate(-90)');
+        .attr('transform', 'rotate(-90)')
+        .style('visibility', (i) => (yLabelVisible == true) ? 'hidden' : 'visible');
 
       // style both labels with a heavier weight
       d3
@@ -416,7 +420,7 @@ the idea is to fabricate an array of data points with random percentage and coun
         .style('font-size', '0.55rem')
         .style('letter-spacing', '0.05rem')
         .style('pointer-events', 'none')
-        .style('visibility', (i) => (hidelable == true) ? 'hidden' : 'visible');
+        .style('visibility', (i) => (dataLabelVisible == false) ? 'hidden' : 'visible');
 
 
       // on hover highlight the data point
@@ -430,7 +434,7 @@ the idea is to fabricate an array of data points with random percentage and coun
           text
             .transition()
             .attr('transform', 'translate(12 0)')
-            .style('color', 'hsl(230, 29%, 19%)')
+            .style('color', 'hsl(0, 0%, 0%)')
             .style('text-shadow', 'none')
             .style('visibility', 'visible');
 
@@ -474,13 +478,13 @@ the idea is to fabricate an array of data points with random percentage and coun
             .attr('stroke-width', 2)
             // have the animation move the path with a stroke-dashoffset considering the cumulative value of a dash and an empty space
             .attr('stroke-dasharray', '7 4');
-            // animate the path elements to perennially move toward the axes
+          // animate the path elements to perennially move toward the axes
           //  .style('animation', 'dashOffset 1.5s linear infinite')
 
 
           dashedLines
             .append('path')
-            .attr('d', ({percentage}) => `M 0 0 v ${(height - percentageScale(percentage))}`);
+            .attr('d', ({ percentage }) => `M 0 0 v ${(height - percentageScale(percentage))}`);
 
           dashedLines
             .append('path')
@@ -494,7 +498,7 @@ the idea is to fabricate an array of data points with random percentage and coun
 
           const labelCount = labels
             .append('g')
-            .attr('transform', ({percentage}) => `translate(0 ${(height - percentageScale(percentage))})`);
+            .attr('transform', ({ percentage }) => `translate(0 ${(height - percentageScale(percentage))})`);
 
           const textCount = labelCount
             .append('text')
@@ -568,7 +572,7 @@ the idea is to fabricate an array of data points with random percentage and coun
             .attr('transform', 'translate(0 0)')
             .style('color', 'inherit')
             .style('text-shadow', 'inherit')
-            .style('visibility', 'hidden');
+            .style('visibility', (i) => (dataLabelVisible == false) ? 'hidden' : 'visible');
 
           // remove the tooltip after rendering it fully transparent
           d3
