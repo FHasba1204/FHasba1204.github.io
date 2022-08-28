@@ -10,7 +10,6 @@ var getScriptPromisify = (src) => {
     var Ar = [];
     var ArChartGauge = [];
     var regionCircle;
-x
 
     let template = document.createElement("template");
     template.innerHTML = `
