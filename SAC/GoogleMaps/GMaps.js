@@ -190,80 +190,80 @@ x
 						alert(e);
 					} finally {
 						that._firstConnection = 1;
+                        var mapOptions = {
+                            zoom: 6,
+                            center: latlng,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            scrollwheel: false
+                        };
+        
+                        var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
+                        var munich = new google.maps.LatLng(48.137154, 11.576124);
+        
+                        var mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
+                        var marker = [];
+                        var infoWindow = new google.maps.InfoWindow();
+        
+                        var icon = {
+                            url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywamarker_64.png',
+                            scaledSize: new google.maps.Size(50, 50)
+                        };
+        
+                        var markerData = [
+                            {
+                                position: new google.maps.LatLng(48.137154, 11.576124),
+                                title: 'Munich',
+                                content: '添付コンテンツX',
+                                icon: icon
+                            },
+                            {
+                                position: new google.maps.LatLng(48.366512, 10.894446),
+                                title: 'Augsburg',
+                                content: '添付コンテンツA',
+                                icon: icon
+                            },
+                            {
+                                position: new google.maps.LatLng(48.452841, 10.277513),
+                                title: 'Günzburg',
+                                content: '添付コンテンツB',
+                                icon: icon
+                            },
+                            {
+                                position: new google.maps.LatLng(48.766666, 11.433333),
+                                title: 'Ingolstadt',
+                                content: '添付コンテンツY',
+                                icon: icon
+                            }
+                        ];
+        
+                        var myMarkers = [];
+                        var gmarkers = [];
+                        for (var i = 0; i < markerData.length; i++) {
+                            gmarkers.push(addMarker(markerData[i]));
+                        }
+        
+                        var markerCluster = new MarkerClusterer(mapObj, gmarkers,
+                            {
+                                maxZoom: 15,
+                                styles: [{
+                                    url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywa_cluster_pin.svg',
+                                    textColor: "white",
+                                    textSize: "14",
+                                    height: 42,
+                                    width: 42,
+                                    anchorIcon: [32, 21]
+                                }]
+                            }
+        
+                        );
+        
+        
+                    }
 					}
 				}
 				LoadLibs();
 
-                var mapOptions = {
-                    zoom: 6,
-                    center: latlng,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    scrollwheel: false
-                };
-
-                var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
-                var munich = new google.maps.LatLng(48.137154, 11.576124);
-
-                var mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
-                var marker = [];
-                var infoWindow = new google.maps.InfoWindow();
-
-                var icon = {
-                    url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywamarker_64.png',
-                    scaledSize: new google.maps.Size(50, 50)
-                };
-
-                var markerData = [
-                    {
-                        position: new google.maps.LatLng(48.137154, 11.576124),
-                        title: 'Munich',
-                        content: '添付コンテンツX',
-                        icon: icon
-                    },
-                    {
-                        position: new google.maps.LatLng(48.366512, 10.894446),
-                        title: 'Augsburg',
-                        content: '添付コンテンツA',
-                        icon: icon
-                    },
-                    {
-                        position: new google.maps.LatLng(48.452841, 10.277513),
-                        title: 'Günzburg',
-                        content: '添付コンテンツB',
-                        icon: icon
-                    },
-                    {
-                        position: new google.maps.LatLng(48.766666, 11.433333),
-                        title: 'Ingolstadt',
-                        content: '添付コンテンツY',
-                        icon: icon
-                    }
-                ];
-
-                var myMarkers = [];
-                var gmarkers = [];
-                for (var i = 0; i < markerData.length; i++) {
-                    gmarkers.push(addMarker(markerData[i]));
-                }
-
-                var markerCluster = new MarkerClusterer(mapObj, gmarkers,
-                    {
-                        maxZoom: 15,
-                        styles: [{
-                            url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywa_cluster_pin.svg',
-                            textColor: "white",
-                            textSize: "14",
-                            height: 42,
-                            width: 42,
-                            anchorIcon: [32, 21]
-                        }]
-                    }
-
-                );
-
-
-            } else {
-            }
+                
         }
 
         //When the custom widget is removed from the canvas or the analytic application is closed
