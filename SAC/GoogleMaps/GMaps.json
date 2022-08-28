@@ -1,0 +1,53 @@
+{
+    "id": "com.hasba.sac.gmaps",
+    "version": "0.0.2",
+    "name": "Google Maps",
+    "description": "Google Maps demo",
+    "newInstancePrefix": "gmap",
+    "icon": "https://fhasba1204.github.io/SAC/GoogleMaps/icon.png",
+    "vendor": "Hasba",
+    "eula": "",
+    "license": "",
+    "imports": [
+        "input-controls"
+    ],
+    "webcomponents": [
+        {
+            "kind": "main",
+            "tag": "com-hasba-sac-gmaps",
+            "url": "https://fhasba1204.github.io/SAC/GoogleMaps/GMaps.js",
+            "integrity": "",
+            "ignoreIntegrity": true
+        }
+    ],
+    "properties": {
+        "metadata": {
+            "type": "string",
+            "description": "For internal use",
+            "default": ""
+        },
+        "width": {
+            "type": "integer",
+            "description": "Width",
+            "default": 700
+        },
+        "height": {
+            "type": "integer",
+            "description": "Height",
+            "default": 660
+        }
+    },
+    "methods": {
+        "render": {
+            "description": "Render",
+            "parameters": [
+                {
+                    "name": "resultSet",
+                    "type": "any",
+                    "description": "The json"
+                }
+            ]
+        }
+    },
+    "events": {}
+}
