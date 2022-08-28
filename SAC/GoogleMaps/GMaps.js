@@ -29,17 +29,17 @@ var getScriptPromisify = (src) => {
 
     const google = "https://maps.google.com/maps/api/js?sensor=false";
 
-	function loadScript(src) {
-        return new Promise(function(resolve, reject) {
-          let script = document.createElement('script');
-          script.src = src;
-  
-          script.onload = () => {console.log("Load: " + src); resolve(script);}
-          script.onerror = () => reject(new Error(`Script load error for ${src}`));
-  
-          shadowRoot.appendChild(script)
+    function loadScript(src) {
+        return new Promise(function (resolve, reject) {
+            let script = document.createElement('script');
+            script.src = src;
+
+            script.onload = () => { console.log("Load: " + src); resolve(script); }
+            script.onerror = () => reject(new Error(`Script load error for ${src}`));
+
+            shadowRoot.appendChild(script)
         });
-      }
+    }
 
     function addMarker(props) {
         var marker = new google.maps.Marker({
@@ -161,7 +161,7 @@ var getScriptPromisify = (src) => {
 
 
             console.log("onCustomWidgetAfterUpdate");
-            console.log(changedProperties);            
+            console.log(changedProperties);
 
             console.log("firsttime: " + this._firstConnection);
             var that = this;
@@ -181,33 +181,33 @@ var getScriptPromisify = (src) => {
                 console.log(mapcanvas_divstr);
 
                 async function LoadLibs() {
-					try {
-						await loadScript(jqueryjs);
-						await loadScript(gmapsjs);				
-						await loadScript(markerclustererjs);				
-					} catch (e) {
-						alert(e);
-					} finally {
-						that._firstConnection = 1;
+                    try {
+                        await loadScript(jqueryjs);
+                        await loadScript(gmapsjs);
+                        await loadScript(markerclustererjs);
+                    } catch (e) {
+                        alert(e);
+                    } finally {
+                        that._firstConnection = 1;
                         var mapOptions = {
                             zoom: 6,
                             center: latlng,
                             mapTypeId: google.maps.MapTypeId.ROADMAP,
                             scrollwheel: false
                         };
-        
+
                         var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
                         var munich = new google.maps.LatLng(48.137154, 11.576124);
-        
+
                         var mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
                         var marker = [];
                         var infoWindow = new google.maps.InfoWindow();
-        
+
                         var icon = {
                             url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywamarker_64.png',
                             scaledSize: new google.maps.Size(50, 50)
                         };
-        
+
                         var markerData = [
                             {
                                 position: new google.maps.LatLng(48.137154, 11.576124),
@@ -234,13 +234,13 @@ var getScriptPromisify = (src) => {
                                 icon: icon
                             }
                         ];
-        
+
                         var myMarkers = [];
                         var gmarkers = [];
                         for (var i = 0; i < markerData.length; i++) {
                             gmarkers.push(addMarker(markerData[i]));
                         }
-        
+
                         var markerCluster = new MarkerClusterer(mapObj, gmarkers,
                             {
                                 maxZoom: 15,
@@ -253,16 +253,17 @@ var getScriptPromisify = (src) => {
                                     anchorIcon: [32, 21]
                                 }]
                             }
-        
-                        );
-        
-        
-                    }
-					}
-				}
-				LoadLibs();
 
-                
+                        );
+
+
+                    }
+                }
+                LoadLibs();
+            }
+
+
+
         }
 
         //When the custom widget is removed from the canvas or the analytic application is closed
