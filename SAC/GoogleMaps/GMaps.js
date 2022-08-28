@@ -10,14 +10,7 @@ var getScriptPromisify = (src) => {
     var Ar = [];
     var ArChartGauge = [];
     var regionCircle;
-    //google jquery
-    const jqueryjs = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
-    //gmaps API
-    const gmapsjs = "https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyAuqtG8XhmKQPGoYpFi9dqZmhZTDWGCxE0";
-    //gmap Clustering API
-    const markerclustererjs = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
-
-    const google = "https://maps.google.com/maps/api/js?sensor=false";
+x
 
     let template = document.createElement("template");
     template.innerHTML = `
@@ -28,35 +21,26 @@ var getScriptPromisify = (src) => {
 		</style>       
 	`;
 
+    //google jquery
+    const jqueryjs = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
+    //gmaps API
+    const gmapsjs = "https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyAuqtG8XhmKQPGoYpFi9dqZmhZTDWGCxE0";
+    //gmap Clustering API
+    const markerclustererjs = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
 
+    const google = "https://maps.google.com/maps/api/js?sensor=false";
 
-    const loadScript = (src, async = true, type = "text/javascript") => {
-        return new Promise((resolve, reject) => {
-            try {
-                const el = document.createElement("script");
-                const container = document.head || document.body;
-    
-                el.type = type;
-                el.async = async;
-                el.src = src;
-    
-                el.addEventListener("load", () => {
-                    resolve({ status: true });
-                });
-    
-                el.addEventListener("error", () => {
-                    reject({
-                        status: false,
-                        message: 'Failed to load the script ${src}'
-                    });
-                });
-    
-                container.appendChild(el);
-            } catch (err) {
-                reject(err);
-            }
+	function loadScript(src) {
+        return new Promise(function(resolve, reject) {
+          let script = document.createElement('script');
+          script.src = src;
+  
+          script.onload = () => {console.log("Load: " + src); resolve(script);}
+          script.onerror = () => reject(new Error(`Script load error for ${src}`));
+  
+          shadowRoot.appendChild(script)
         });
-    };
+      }
 
     function addMarker(props) {
         var marker = new google.maps.Marker({
@@ -178,23 +162,7 @@ var getScriptPromisify = (src) => {
 
 
             console.log("onCustomWidgetAfterUpdate");
-            console.log(changedProperties);
-
-            loadScript(jqueryjs);
-            loadScript(gmapsjs);
-            loadScript(markerclustererjs);
-            
-
-            /*           if ("value" in changedProperties) {
-                          console.log("value:" + changedProperties["value"]);
-                          this.$value = changedProperties["value"];
-                      }
-          
-                      if ("formula" in changedProperties) {
-                          console.log("formula:" + changedProperties["formula"]);
-                          this.$formula = changedProperties["formula"];
-          
-                      } */
+            console.log(changedProperties);            
 
             console.log("firsttime: " + this._firstConnection);
             var that = this;
@@ -213,7 +181,18 @@ var getScriptPromisify = (src) => {
                 var mapcanvas_divstr = shadowRoot.getElementById('container_' + divid);
                 console.log(mapcanvas_divstr);
 
-
+                async function LoadLibs() {
+					try {
+						await loadScript(jqueryjs);
+						await loadScript(gmapsjs);				
+						await loadScript(markerclustererjs);				
+					} catch (e) {
+						alert(e);
+					} finally {
+						that._firstConnection = 1;
+					}
+				}
+				LoadLibs();
 
                 var mapOptions = {
                     zoom: 6,
