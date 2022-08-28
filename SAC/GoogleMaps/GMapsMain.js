@@ -61,7 +61,7 @@
                 mode: "open"
             });
 
-            shadowRoot.appendChild(googleloaderjs);
+            //shadowRoot.appendChild(googleloaderjs);
             shadowRoot.appendChild(template.content.cloneNode(true));
 
             this._firstConnection = 0;
