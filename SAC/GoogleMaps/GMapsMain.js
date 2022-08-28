@@ -23,9 +23,9 @@
 
     // Google Chart
     function GoogleChart(divstr, text, value, firsttime) {
-        google.setOnLoadCallback(function () {
+        //google.setOnLoadCallback(function () {
             drawChart(divstr, text, value, firsttime);
-        });
+       // });
     };
 
     function drawChart(divstr, text, value, firsttime) {
