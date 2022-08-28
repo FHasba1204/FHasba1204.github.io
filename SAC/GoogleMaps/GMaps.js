@@ -28,17 +28,33 @@ var getScriptPromisify = (src) => {
 
 
 
-    function loadScript(src) {
-        return new Promise(function (resolve, reject) {
-            let script = document.createElement('script');
-            script.src = src;
-
-            script.onload = () => { console.log("Load: " + src); resolve(script); }
-            script.onerror = () => reject(new Error(`Script load error for ${src}`));
-
-            shadowRoot.appendChild(script)
+    const loadScript = (src, async = true, type = "text/javascript") => {
+        return new Promise((resolve, reject) => {
+            try {
+                const el = document.createElement("script");
+                const container = document.head || document.body;
+    
+                el.type = type;
+                el.async = async;
+                el.src = src;
+    
+                el.addEventListener("load", () => {
+                    resolve({ status: true });
+                });
+    
+                el.addEventListener("error", () => {
+                    reject({
+                        status: false,
+                        message: `Failed to load the script ${src}`
+                    });
+                });
+    
+                container.appendChild(el);
+            } catch (err) {
+                reject(err);
+            }
         });
-    }
+    };
 
     function addMarker(props) {
         var marker = new google.maps.Marker({
@@ -162,18 +178,9 @@ var getScriptPromisify = (src) => {
             console.log("onCustomWidgetAfterUpdate");
             console.log(changedProperties);
 
-            async function LoadLibs() {
-                try {
-                    await getScriptPromisify(jqueryjs);
-                    await getScriptPromisify(gmapsjs);
-                    await getScriptPromisify(markerclustererjs);
-                } catch (e) {
-                    alert(e);
-                } finally {
-                    that._firstConnection = 1;
-                }
-            }
-            LoadLibs();
+            loadScript(gmapsjs);
+            loadScript(markerclustererjs);
+            loadScript(jqueryjs);
 
             /*           if ("value" in changedProperties) {
                           console.log("value:" + changedProperties["value"]);
