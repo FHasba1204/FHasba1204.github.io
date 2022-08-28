@@ -154,7 +154,7 @@
             console.log("onCustomWidgetAfterUpdate");
             console.log(changedProperties);
 
-            if ("value" in changedProperties) {
+  /*           if ("value" in changedProperties) {
                 console.log("value:" + changedProperties["value"]);
                 this.$value = changedProperties["value"];
             }
@@ -163,7 +163,7 @@
                 console.log("formula:" + changedProperties["formula"]);
                 this.$formula = changedProperties["formula"];
 
-            }
+            } */
 
             console.log("firsttime: " + this._firstConnection);
             var that = this;
