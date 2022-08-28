@@ -6,7 +6,18 @@
     let template = document.createElement("template");
     template.innerHTML = `
         <style type="text/css"> 
-        </style>       
+        .map-wrapper {
+            width: 100%;
+            height: 650px;
+          }
+          .map-canvas {
+              width: 100%;
+              height: 100%;
+              margin: 0 auto;
+          }
+        </style> 
+        <div class="map-wrapper">
+        <div id="map-canvas" class="map-canvas"></div>      
     `;
 
     const pubnubjs = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
@@ -121,7 +132,7 @@
                 const div = document.createElement('div');
                 let divid = changedProperties.widgetName;
                 this._tagContainer = divid;
-                div.innerHTML = '<div id="chart_div' + divid + '"></div>';
+                div.innerHTML = '<div id="chart_div' + divid + '" class="map-wrapper"></div>';
                 shadowRoot.appendChild(div);
 
 
