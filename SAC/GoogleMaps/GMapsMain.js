@@ -15,9 +15,7 @@
               height: 100%;
               margin: 0 auto;
           }
-        </style> 
-        <div class="map-wrapper">
-        <div id="map-canvas" class="map-canvas"></div>      
+        </style>     
     `;
 
     const pubnubjs = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
