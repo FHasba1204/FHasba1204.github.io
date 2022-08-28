@@ -191,12 +191,12 @@ var getScriptPromisify = (src) => {
                         that._firstConnection = 1;
                         var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
                         var munich = new google.maps.LatLng(48.137154, 11.576124);
-                        
+
                         var mapOptions = {
                             zoom: 6,
                             center: latlng,
-                            mapTypeId: google.maps.MapTypeId.ROADMAP,
-                            scrollwheel: false
+                           // mapTypeId: google.maps.MapTypeId.ROADMAP,
+                          //  scrollwheel: false
                         };
 
                         
