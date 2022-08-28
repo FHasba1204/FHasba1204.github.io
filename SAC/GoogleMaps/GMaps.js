@@ -1,9 +1,21 @@
+var getScriptPromisify = (src) => {
+    return new Promise(resolve => {
+        $.getScript(src, resolve)
+    })
+}
+
 (function () {
     let shadowRoot;
 
     var Ar = [];
     var ArChartGauge = [];
     var regionCircle;
+    //google jquery
+    const jqueryjs = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
+    //gmaps API
+    const gmapsjs = "https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyAuqtG8XhmKQPGoYpFi9dqZmhZTDWGCxE0";
+    //gmap Clustering API
+    const markerclustererjs = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
 
     let template = document.createElement("template");
     template.innerHTML = `
@@ -14,12 +26,7 @@
 		</style>       
 	`;
 
-    //google jquery
-    const jqueryjs = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
-    //gmaps API
-    const gmapsjs = "https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyAuqtG8XhmKQPGoYpFi9dqZmhZTDWGCxE0";
-    //gmap Clustering API
-    const markerclustererjs = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
+
 
     function loadScript(src) {
         return new Promise(function (resolve, reject) {
@@ -151,19 +158,33 @@
         //When the custom widget is updated, the Custom Widget SDK framework executes this function after the update
         onCustomWidgetAfterUpdate(changedProperties) {
 
+
             console.log("onCustomWidgetAfterUpdate");
             console.log(changedProperties);
 
-  /*           if ("value" in changedProperties) {
-                console.log("value:" + changedProperties["value"]);
-                this.$value = changedProperties["value"];
+            async function LoadLibs() {
+                try {
+                    await getScriptPromisify(jqueryjs);
+                    await getScriptPromisify(gmapsjs);
+                    await getScriptPromisify(markerclustererjs);
+                } catch (e) {
+                    alert(e);
+                } finally {
+                    that._firstConnection = 1;
+                }
             }
+            LoadLibs();
 
-            if ("formula" in changedProperties) {
-                console.log("formula:" + changedProperties["formula"]);
-                this.$formula = changedProperties["formula"];
-
-            } */
+            /*           if ("value" in changedProperties) {
+                          console.log("value:" + changedProperties["value"]);
+                          this.$value = changedProperties["value"];
+                      }
+          
+                      if ("formula" in changedProperties) {
+                          console.log("formula:" + changedProperties["formula"]);
+                          this.$formula = changedProperties["formula"];
+          
+                      } */
 
             console.log("firsttime: " + this._firstConnection);
             var that = this;
@@ -182,18 +203,7 @@
                 var mapcanvas_divstr = shadowRoot.getElementById('container_' + divid);
                 console.log(mapcanvas_divstr);
 
-                async function LoadLibs() {
-                    try {
-                        await loadScript(jqueryjs);
-                        await loadScript(gmapsjs);
-                        await loadScript(markerclustererjs);
-                    } catch (e) {
-                        alert(e);
-                    } finally {
-                        that._firstConnection = 1;
-                    }
-                }
-                LoadLibs();
+
 
                 var mapOptions = {
                     zoom: 6,
@@ -203,7 +213,7 @@
                 };
 
                 var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
-                var munich = new google.maps.LatLng(48.137154,11.576124);
+                var munich = new google.maps.LatLng(48.137154, 11.576124);
 
                 var mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
                 var marker = [];
