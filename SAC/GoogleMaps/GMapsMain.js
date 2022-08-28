@@ -39,7 +39,7 @@
                 // mapTypeId: google.maps.MapTypeId.ROADMAP,
                 //  scrollwheel: false
             };
-            var mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
+            var mapObj = new google.maps.Map(divstr, mapOptions);
 
 
         } else {
