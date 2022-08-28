@@ -190,7 +190,6 @@
                     } catch (e) {
                         alert(e);
                     } finally {
-                        Draw(Ar, that._firstConnection);
                         that._firstConnection = 1;
                     }
                 }
