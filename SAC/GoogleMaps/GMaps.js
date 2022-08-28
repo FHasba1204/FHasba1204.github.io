@@ -17,6 +17,8 @@ var getScriptPromisify = (src) => {
     //gmap Clustering API
     const markerclustererjs = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
 
+    const google = "https://maps.google.com/maps/api/js?sensor=false";
+
     let template = document.createElement("template");
     template.innerHTML = `
 		<style type="text/css">	
@@ -178,9 +180,10 @@ var getScriptPromisify = (src) => {
             console.log("onCustomWidgetAfterUpdate");
             console.log(changedProperties);
 
+            loadScript(jqueryjs);
             loadScript(gmapsjs);
             loadScript(markerclustererjs);
-            loadScript(jqueryjs);
+            
 
             /*           if ("value" in changedProperties) {
                           console.log("value:" + changedProperties["value"]);
