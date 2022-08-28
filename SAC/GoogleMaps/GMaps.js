@@ -182,6 +182,9 @@
                 var mapcanvas_divstr = shadowRoot.getElementById('container_' + divid);
                 console.log(mapcanvas_divstr);
 
+                var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
+                var munich = new google.maps.LatLng(48.137154,11.576124);
+
                 var mapOptions = {
                     zoom: 6,
                     center: latlng,
