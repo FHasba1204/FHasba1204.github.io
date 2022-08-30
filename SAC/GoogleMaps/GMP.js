@@ -50,6 +50,7 @@ var getScriptPromisify = (src) => {
             }*/
 
             const div = document.createElement('div');
+            div.classList.add('map-canvas');
             //let divid = changedProperties.widgetName;
             //this._tagContainer = divid;
 
