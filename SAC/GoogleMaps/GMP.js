@@ -11,7 +11,7 @@ var getScriptPromisify = (src) => {
     .map-wrapper {
         width: 100%;
         height: 100%;
-        
+
       }
       .map-canvas {
           width: 100%;
@@ -34,7 +34,7 @@ var getScriptPromisify = (src) => {
         }
 
         onCustomWidgetResize(width, height) {
-            this.render()
+            //this.render()
 
         }
         // ------------------
