@@ -39,13 +39,16 @@ var getScriptPromisify = (src) => {
         await getScriptPromisify('https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyAuqtG8XhmKQPGoYpFi9dqZmhZTDWGCxE0')
         await getScriptPromisify('https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
         
-        this._placeholder = this._root.querySelector('#map-wrapper')
-        if (this._placeholder) {
-          this._root.removeChild(this._placeholder)
-          this._placeholder = null
-        }
+        const div = document.createElement('div');
+                let divid = changedProperties.widgetName;
+                this._tagContainer = divid;
+                div.innerHTML = '<div id="chart_div' + divid + '" class="map-wrapper"></div>';
+                shadowRoot.appendChild(div);
+
+
+                var mapcanvas_divstr = shadowRoot.getElementById('chart_div' + divid);
   
-        var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
+            var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
             var munich = new google.maps.LatLng(48.137154, 11.576124);
 
             var mapOptions = {
@@ -54,7 +57,7 @@ var getScriptPromisify = (src) => {
                 // mapTypeId: google.maps.MapTypeId.ROADMAP,
                 //  scrollwheel: false
             };
-            var mapObj = new google.maps.Map(divstr, mapOptions);
+            var mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
       }
     }
   
