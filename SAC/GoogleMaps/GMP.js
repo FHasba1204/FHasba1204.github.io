@@ -43,11 +43,11 @@ var getScriptPromisify = (src) => {
             await getScriptPromisify('https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyAuqtG8XhmKQPGoYpFi9dqZmhZTDWGCxE0')
             await getScriptPromisify('https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
 
-            this._placeholder = this._root.getElementById('#chart_div_map1')
+        /*      this._placeholder = this._root.getElementById('#chart_div_map1')
             if (this._placeholder) {
                 this._root.removeChild(this._placeholder)
                 this._placeholder = null
-            }
+            }*/
 
             const div = document.createElement('div');
             //let divid = changedProperties.widgetName;
