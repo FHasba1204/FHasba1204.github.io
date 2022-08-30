@@ -33,9 +33,7 @@ var getScriptPromisify = (src) => {
       }
       
       onCustomWidgetResize (width, height) {
-        //this.render()
-        this._shadowRoot.getElementById('chart_div_map1').style.width=height;
-        var i = 0;
+        this.render()
       }
       // ------------------
       // Scripting methods
