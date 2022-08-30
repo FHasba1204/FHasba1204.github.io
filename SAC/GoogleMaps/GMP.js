@@ -40,13 +40,13 @@ var getScriptPromisify = (src) => {
         await getScriptPromisify('https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
         
         const div = document.createElement('div');
-                let divid = changedProperties.widgetName;
-                this._tagContainer = divid;
-                div.innerHTML = '<div id="chart_div' + divid + '" class="map-wrapper"></div>';
+                //let divid = changedProperties.widgetName;
+                //this._tagContainer = divid;
+                div.innerHTML = '<div id="chart_div_map1" class="map-wrapper"></div>';
                 shadowRoot.appendChild(div);
 
 
-                var mapcanvas_divstr = shadowRoot.getElementById('chart_div' + divid);
+                var mapcanvas_divstr = shadowRoot.getElementById('chart_div_map1');
   
             var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
             var munich = new google.maps.LatLng(48.137154, 11.576124);
