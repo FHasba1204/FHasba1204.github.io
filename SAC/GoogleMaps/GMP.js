@@ -71,7 +71,6 @@ var getScriptPromisify = (src) => {
                 //  scrollwheel: false
             };
             var mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
-            var mapObj = new google.maps.Map(canvas, mapOptions);
             var marker = [];
             var infoWindow = new google.maps.InfoWindow();
 
