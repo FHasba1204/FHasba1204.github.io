@@ -15,7 +15,7 @@
         {
             "kind": "main",
             "tag": "com-hasba-sac-gmaps",
-            "url": "https://fhasba1204.github.io/SAC/GoogleMaps/GMapsMain.js",
+            "url": "https://fhasba1204.github.io/SAC/GoogleMaps/GMP.js",
             "integrity": "",
             "ignoreIntegrity": true
         }
