@@ -31,7 +31,10 @@ var getScriptPromisify = (src) => {
         this._props = {}
         this.render()
       }
-  
+      
+      onCustomWidgetResize (width, height) {
+        this.render()
+      }
       // ------------------
       // Scripting methods
       // ------------------
@@ -59,6 +62,10 @@ var getScriptPromisify = (src) => {
             };
             var mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
       }
+
+      onCustomWidgetResize(width, height){
+        var check = 0;
+    }
     }
   
     customElements.define('com-hasba-sac-gmaps', SampleLifeExpectancy2)
