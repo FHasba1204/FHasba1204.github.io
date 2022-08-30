@@ -33,7 +33,9 @@ var getScriptPromisify = (src) => {
       }
       
       onCustomWidgetResize (width, height) {
-        this.render()
+        //this.render()
+
+        var i = 0;
       }
       // ------------------
       // Scripting methods
@@ -63,9 +65,6 @@ var getScriptPromisify = (src) => {
             var mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
       }
 
-      onCustomWidgetResize(width, height){
-        var check = 0;
-    }
     }
   
     customElements.define('com-hasba-sac-gmaps', SampleLifeExpectancy2)
