@@ -29,6 +29,7 @@ var getScriptPromisify = (src) => {
         this._root = this._shadowRoot.getElementById('root')
   
         this._props = {}
+        this.render()
       }
   
       // ------------------
