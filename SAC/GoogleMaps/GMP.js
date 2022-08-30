@@ -10,7 +10,8 @@ var getScriptPromisify = (src) => {
     <style type="text/css"> 
     .map-wrapper {
         width: 100%;
-        height: 650px;
+        height: 100%;
+        
       }
       .map-canvas {
           width: 100%;
