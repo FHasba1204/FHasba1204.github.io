@@ -41,7 +41,7 @@
 			this._shadowRoot.getElementById("form").addEventListener("submit", this._submit.bind(this));
 		}
 
-		_submit(e) {
+/* 		_submit(e) {
 			e.preventDefault();
 			this.dispatchEvent(new CustomEvent("propertiesChanged", {
 					detail: {
@@ -53,7 +53,34 @@
 						}
 					}
 			}));
-		}
+		} */
+
+		_submit(e) {
+            e.preventDefault();
+            let properties = {};
+            for (let name of GMapsBps.observedAttributes) {
+                properties[name] = this[name];
+            }
+            console.log(properties);
+            this._firePropertiesChanged(properties);
+            return false;
+        }
+        _change(e) {
+            this._changeProperty(e.target.name);
+        }
+        _changeProperty(name) {
+            let properties = {};
+            properties[name] = this[name];
+            this._firePropertiesChanged(properties);
+        }
+
+        _firePropertiesChanged(properties) {
+            this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                detail: {
+                    properties: properties
+                }
+            }));
+        }
 
 		set geochar(newGeoChar) {
 			this._shadowRoot.getElementById("bps_geochar").value = newGeoChar;
