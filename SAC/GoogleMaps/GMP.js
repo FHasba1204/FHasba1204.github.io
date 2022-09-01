@@ -44,7 +44,7 @@ var getScriptPromisify = (src) => {
         addMarker(props) {
             var marker = new google.maps.Marker({
                 position: props.position,
-                map: mapObj,
+                map: this._mapObj,
                 title: props.title,
                 icon: props.icon,
             });
@@ -95,7 +95,7 @@ var getScriptPromisify = (src) => {
                 // mapTypeId: google.maps.MapTypeId.ROADMAP,
                 //  scrollwheel: false
             };
-            var mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
+            this._mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
             var marker = [];
             var infoWindow = new google.maps.InfoWindow();
 
@@ -222,13 +222,13 @@ var getScriptPromisify = (src) => {
                     content: dp["GEO_DIM_Ort.Ort_GEOID"].description,
                     icon: icon
                 }
-                markerData.push(marker)
-                this._gmarkers.push(addMarker(marker))
+                //markerData.push(marker)
+                this._gmarkers.push(this.addMarker(marker))
 
         })
 
 
-            var markerCluster = new MarkerClusterer(mapObj, this._gmarkers,
+            var markerCluster = new MarkerClusterer(this._mapObj, this._gmarkers,
                 {
                     maxZoom: 15,
                     styles: [{
