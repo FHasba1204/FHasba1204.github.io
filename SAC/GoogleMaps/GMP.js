@@ -19,7 +19,10 @@ var getScriptPromisify = (src) => {
           margin: 0 auto;
       }
     </style> 
-      `
+    `
+    
+    
+
     class SampleLifeExpectancy2 extends HTMLElement {
         constructor() {
             super()
@@ -37,6 +40,29 @@ var getScriptPromisify = (src) => {
             //this.render()
 
         }
+
+        addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.position,
+                map: mapObj,
+                title: props.title,
+                icon: props.icon,
+            });
+            if (props.iconImage) {
+                marker.setIcon(props.iconImage);
+            }
+            //Check content
+            if (props.content) {
+                marker.addListener("click", () => {
+                    infoWindow.close();
+                    infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
+                    infoWindow.open(marker.getMap(), marker);
+                });
+            }
+    
+            return marker;
+        }
+
         // ------------------
         // Scripting methods
         // ------------------
@@ -62,7 +88,6 @@ var getScriptPromisify = (src) => {
             var mapcanvas_divstr = this._shadowRoot.getElementById('chart_div_map1');
 
             var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
-            var munich = new google.maps.LatLng(48.137154, 11.576124);
 
             var mapOptions = {
                 zoom: 6,
@@ -79,67 +104,131 @@ var getScriptPromisify = (src) => {
                 scaledSize: new google.maps.Size(50, 50)
             };
 
-            // マーカーデータ
-            var markerData = [
+            var resultSet = [
                 {
-                    position: new google.maps.LatLng(48.137154, 11.576124),
-                    title: 'Munich',
-                    content: '添付コンテンツX',
-                    icon: icon
+                    "@MeasureDimension": {
+                        "id": "[Account].[parentId].&[Kennzahlcount]",
+                        "description": "Kennzahlcount",
+                        "rawValue": "1",
+                        "formattedValue": "1.00"
+                    },
+                    "Lieferant": {
+                        "id": "A & B Senatore Logistics GmbH",
+                        "description": "A & B Senatore Logistics GmbH",
+                        "properties": {}
+                    },
+                    "Postleitzahl": {
+                        "id": "90455",
+                        "description": "90455",
+                        "properties": {}
+                    },
+                    "LaengengradPunkt": {
+                        "id": "11.07845",
+                        "description": "11.07845",
+                        "properties": {}
+                    },
+                    "BreitengradPunkt": {
+                        "id": "49.37222",
+                        "description": "49.37222",
+                        "properties": {}
+                    },
+                    "GEO_DIM_Ort.Ort_GEOID": {
+                        "id": "90455-Nürnberg-Barlachstr. 9",
+                        "description": "90455-Nürnberg-Barlachstr. 9",
+                        "properties": {}
+                    }
                 },
                 {
-                    position: new google.maps.LatLng(48.366512, 10.894446),
-                    title: 'Augsburg',
-                    content: '添付コンテンツA',
-                    icon: icon
+                    "@MeasureDimension": {
+                        "id": "[Account].[parentId].&[Kennzahlcount]",
+                        "description": "Kennzahlcount",
+                        "rawValue": "1",
+                        "formattedValue": "1.00"
+                    },
+                    "Lieferant": {
+                        "id": "Abschleppdienst Kelpin",
+                        "description": "Abschleppdienst Kelpin",
+                        "properties": {}
+                    },
+                    "Postleitzahl": {
+                        "id": "8538",
+                        "description": "8538",
+                        "properties": {}
+                    },
+                    "LaengengradPunkt": {
+                        "id": "12.03572",
+                        "description": "12.03572",
+                        "properties": {}
+                    },
+                    "BreitengradPunkt": {
+                        "id": "50.42541",
+                        "description": "50.42541",
+                        "properties": {}
+                    },
+                    "GEO_DIM_Ort.Ort_GEOID": {
+                        "id": "08538-Weischlitz-Am Gewerbering 1",
+                        "description": "08538-Weischlitz-Am Gewerbering 1",
+                        "properties": {}
+                    }
                 },
                 {
-                    position: new google.maps.LatLng(48.452841, 10.277513),
-                    title: 'Günzburg',
-                    content: '添付コンテンツB',
+                    "@MeasureDimension": {
+                        "id": "[Account].[parentId].&[Kennzahlcount]",
+                        "description": "Kennzahlcount",
+                        "rawValue": "1",
+                        "formattedValue": "1.00"
+                    },
+                    "Lieferant": {
+                        "id": "Andreas Schmid Int. Spedition",
+                        "description": "Andreas Schmid Int. Spedition",
+                        "properties": {}
+                    },
+                    "Postleitzahl": {
+                        "id": "86368",
+                        "description": "86368",
+                        "properties": {}
+                    },
+                    "LaengengradPunkt": {
+                        "id": "10.87901",
+                        "description": "10.87901",
+                        "properties": {}
+                    },
+                    "BreitengradPunkt": {
+                        "id": "48.42122",
+                        "description": "48.42122",
+                        "properties": {}
+                    },
+                    "GEO_DIM_Ort.Ort_GEOID": {
+                        "id": "86368-Gersthofen-Andreas-Schmid-Str.",
+                        "description": "86368-Gersthofen-Andreas-Schmid-Str.",
+                        "properties": {}
+                    }
+                }];
+
+                const MEASURE_DIMENSION = '@MeasureDimension'
+                const vendor = []
+                const longitude = []
+                const latitude = []
+                const Ort_GEOID = []
+                this._gmarkers = [];
+
+            // Markers
+            resultSet.forEach(dp => {
+                const { rawValue, description } = dp[MEASURE_DIMENSION]
+
+                const marker = {
+                    position: new google.maps.LatLng(Number(dp.BreitengradPunkt.id), Number(dp.LaengengradPunkt.id)),
+                    title: dp.Postleitzahl.description,
+                    content: dp.GEO_DIM_Ort.Ort_GEOID.description,
                     icon: icon
-                },
-                {
-                    position: new google.maps.LatLng(48.766666, 11.433333),
-                    title: 'Ingolstadt',
-                    content: '添付コンテンツY',
-                    icon: icon
                 }
-            ];
+                markerData.push(marker)
+                this._gmarkers.push(addMarker(marker))
 
-            // マーカーの表示
-            var myMarkers = [];
-            var gmarkers = [];
-            for (var i = 0; i < markerData.length; i++) {
-                gmarkers.push(addMarker(markerData[i]));
-            }
+        })
 
 
-
-            function addMarker(props) {
-                var marker = new google.maps.Marker({
-                    position: props.position,
-                    map: mapObj,
-                    title: props.title,
-                    icon: props.icon,
-                });
-                if (props.iconImage) {
-                    marker.setIcon(props.iconImage);
-                }
-                //Check content
-                if (props.content) {
-                    marker.addListener("click", () => {
-                        infoWindow.close();
-                        infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
-                        infoWindow.open(marker.getMap(), marker);
-                    });
-                }
-
-                return marker;
-            }
-
-
-            var markerCluster = new MarkerClusterer(mapObj, gmarkers,
+            var markerCluster = new MarkerClusterer(mapObj, this._gmarkers,
                 {
                     maxZoom: 15,
                     styles: [{
@@ -155,14 +244,16 @@ var getScriptPromisify = (src) => {
             );
 
             function clearMapMarkers() {
-                for (i = 0; i < gmarkers.length; i++) {
-                    gmarkers[i].setMap(null);
+                for (i = 0; i < this._gmarkers.length; i++) {
+                    this._gmarkers[i].setMap(null);
                 }
                 markerCluster.clearMarkers();
                 markerCluster = null;
-                gmarkers = [];
+                this._gmarkers = [];
             }
         }
+
+      
 
     }
 
