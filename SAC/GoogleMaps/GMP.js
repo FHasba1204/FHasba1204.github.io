@@ -219,7 +219,7 @@ var getScriptPromisify = (src) => {
                 const marker = {
                     position: new google.maps.LatLng(Number(dp.BreitengradPunkt.id), Number(dp.LaengengradPunkt.id)),
                     title: dp.Postleitzahl.description,
-                    content: dp.GEO_DIM_Ort.Ort_GEOID.description,
+                    content: dp["GEO_DIM_Ort.Ort_GEOID"].description,
                     icon: icon
                 }
                 markerData.push(marker)
