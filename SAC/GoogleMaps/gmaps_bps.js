@@ -39,32 +39,24 @@
 			this._shadowRoot = this.attachShadow({mode: "open"});
 			this._shadowRoot.appendChild(template.content.cloneNode(true));
 			this._shadowRoot.getElementById("form").addEventListener("submit", this._submit.bind(this));
+			this._shadowRoot.getElementById("form").addEventListener("change", this._change.bind(this));
 		}
 
-/* 		_submit(e) {
+ 		_submit(e) {
 			e.preventDefault();
 			this.dispatchEvent(new CustomEvent("propertiesChanged", {
 					detail: {
 						properties: {
 							geochar: this.geochar,
-                            latitude: this.latitude,
-                            longitude: this.longitude,
-                            content: this.content
+                            latitude: this.latitudechar,
+                            longitude: this.longitudechar,
+                            content: this.contentchar
 						}
 					}
 			}));
-		} */
+		} 
 
-		_submit(e) {
-            e.preventDefault();
-            let properties = {};
-            for (let name of GMapsBps.observedAttributes) {
-                properties[name] = this[name];
-            }
-            console.log(properties);
-            this._firePropertiesChanged(properties);
-            return false;
-        }
+
         _change(e) {
             this._changeProperty(e.target.name);
         }
@@ -99,18 +91,18 @@
 		}
 
         set latitudechar(newLatitudeChar) {
-			this._shadowRoot.getElementById("bps_Latitude").value = newLatitudechar;
+			this._shadowRoot.getElementById("bps_Latitude").value = newLatitudeChar;
 		}
 
 		get latitudechar() {
 			return this._shadowRoot.getElementById("bps_Latitude").value;
 		}
 
-        set contenchar(newContentChar) {
+        set contentchar(newContentChar) {
 			this._shadowRoot.getElementById("bps_content").value = newContentChar;
 		}
 
-		get contenchar() {
+		get contentchar() {
 			return this._shadowRoot.getElementById("bps_content").value;
 		}
 	}
