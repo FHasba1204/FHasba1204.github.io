@@ -20,8 +20,8 @@ var getScriptPromisify = (src) => {
       }
     </style> 
     `
-    
-    
+
+
 
     class SampleLifeExpectancy2 extends HTMLElement {
         constructor() {
@@ -54,12 +54,12 @@ var getScriptPromisify = (src) => {
             //Check content
             if (props.content) {
                 marker.addListener("click", () => {
-                    infoWindow.close();
-                    infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
-                    infoWindow.open(marker.getMap(), marker);
+                    this._infoWindow.close();
+                    this._infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
+                    this._infoWindow.open(marker.getMap(), marker);
                 });
             }
-    
+
             return marker;
         }
 
@@ -205,12 +205,18 @@ var getScriptPromisify = (src) => {
                     }
                 }];
 
-                const MEASURE_DIMENSION = '@MeasureDimension'
-                const vendor = []
-                const longitude = []
-                const latitude = []
-                const Ort_GEOID = []
-                this._gmarkers = [];
+            const MEASURE_DIMENSION = '@MeasureDimension'
+            this._gmarkers = [];
+
+            var keys = [];
+            for (var i = 0; i < resultSet.length; i++) {
+                Object.keys(resultSet[i]).forEach(function (key) {
+                    if (keys.indexOf(key) == -1) {
+                        keys.push(key);
+                    }
+                });
+            }
+            console.log(keys);
 
             // Markers
             resultSet.forEach(dp => {
@@ -225,7 +231,7 @@ var getScriptPromisify = (src) => {
                 //markerData.push(marker)
                 this._gmarkers.push(this.addMarker(marker))
 
-        })
+            })
 
 
             var markerCluster = new MarkerClusterer(this._mapObj, this._gmarkers,
@@ -253,7 +259,7 @@ var getScriptPromisify = (src) => {
             }
         }
 
-      
+
 
     }
 

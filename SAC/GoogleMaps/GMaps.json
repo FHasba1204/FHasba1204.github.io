@@ -18,7 +18,14 @@
             "url": "https://fhasba1204.github.io/SAC/GoogleMaps/GMP.js",
             "integrity": "",
             "ignoreIntegrity": true
-        }
+        },
+        {
+			"kind": "builder",
+			"tag": "com-hasba-sac-gmaps-bps",
+			"url": "https://fhasba1204.github.io/SAC/GoogleMaps/gmaps_bps.js",
+			"integrity": "",
+			"ignoreIntegrity": true
+		}
     ],
     "properties": {
         "metadata": {
@@ -26,6 +33,26 @@
             "description": "For internal use",
             "default": ""
         },
+        "geochar": {
+			"type": "string",
+			"description": "Geo Characteristic",
+			"default": ""
+		},
+        "latitude": {
+			"type": "string",
+			"description": "Latitude Characteristic",
+			"default": ""
+		},
+        "longitude": {
+			"type": "string",
+			"description": "Longitude Characteristic",
+			"default": ""
+		},
+        "content": {
+			"type": "string",
+			"description": "Content Characteristic",
+			"default": ""
+		},
         "width": {
             "type": "integer",
             "description": "Width",
