@@ -63,6 +63,15 @@ var getScriptPromisify = (src) => {
             return marker;
         }
 
+        clearMapMarkers() {
+            for (i = 0; i < this._gmarkers.length; i++) {
+                this._gmarkers[i].setMap(null);
+            }
+            markerCluster.clearMarkers();
+            markerCluster = null;
+            this._gmarkers = [];
+        }
+
         // ------------------
         // Scripting methods
         // ------------------
@@ -249,15 +258,32 @@ var getScriptPromisify = (src) => {
 
             );
 
-            function clearMapMarkers() {
-                for (i = 0; i < this._gmarkers.length; i++) {
-                    this._gmarkers[i].setMap(null);
-                }
-                markerCluster.clearMarkers();
-                markerCluster = null;
-                this._gmarkers = [];
-            }
+       
         }
+
+        onCustomWidgetBeforeUpdate(changedProperties) {
+			this._props = { ...this._props, ...changedProperties };
+		}
+
+		onCustomWidgetAfterUpdate(changedProperties) {
+			if ("geochar" in changedProperties) {
+				this.$geochar = changedProperties["geochar"];
+			}
+			
+			if ("latitude" in changedProperties) {
+				this.$latitude = changedProperties["latitude"];
+			}
+			
+			if ("longitude" in changedProperties) {
+				this.$longitude = changedProperties["longitude"];
+			}
+
+            if ("content" in changedProperties) {
+				this.$content = changedProperties["content"];
+			}
+			
+			//this.render(this.$value, this.$info, this.$color);
+		}
 
 
 
