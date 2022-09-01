@@ -99,11 +99,11 @@
 		}
 
         set contentchar(newContentChar) {
-			this._shadowRoot.getElementById("bps_content").value = newContentChar;
+			this._shadowRoot.getElementById("bps_Content").value = newContentChar;
 		}
 
 		get contentchar() {
-			return this._shadowRoot.getElementById("bps_content").value;
+			return this._shadowRoot.getElementById("bps_Content").value;
 		}
 	}
 
