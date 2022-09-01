@@ -7,19 +7,19 @@
 				<table>
 					<tr>
 						<td>Characteristic Geo</td>
-						<td><input id="bps_geochar" type="text" size="20" maxlength="20"></td>
+						<td><input id="bps_geochar" type="text" size="30" maxlength="30"></td>
 					</tr>
                     <tr>
 						<td>Characteristic Longitude</td>
-						<td><input id="bps_Longitude" type="text" size="20" maxlength="20"></td>
+						<td><input id="bps_Longitude" type="text" size="30" maxlength="30"></td>
 					</tr>
                     <tr>
                         <td>Characteristic Latitude</td>
-                        <td><input id="bps_Latitude" type="text" size="20" maxlength="20"></td>
+                        <td><input id="bps_Latitude" type="text" size="30" maxlength="30"></td>
                     </tr>
                     <tr>
                         <td>Characteristic Content</td>
-                        <td><input id="bps_Content" type="text" size="20" maxlength="20"></td>
+                        <td><input id="bps_Content" type="text" size="30" maxlength="30"></td>
                     </tr>
 				</table>
 				<input type="submit" style="display:none;">
