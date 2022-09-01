@@ -7,7 +7,7 @@
 				<table>
 					<tr>
 						<td>Characteristic Geo</td>
-						<td><input id="bps_geochar" type="text" size="10" maxlength="10"></td>
+						<td><input id="bps_geochar" type="text" size="10" maxlength="20"></td>
 					</tr>
                     <tr>
 						<td>Characteristic Longitude</td>
@@ -19,7 +19,7 @@
                     </tr>
                     <tr>
                         <td>Characteristic Content</td>
-                        <td><input id="bps_Content" type="text" size="10" maxlength="10"></td>
+                        <td><input id="bps_Content" type="text" size="10" maxlength="20"></td>
                     </tr>
 				</table>
 				<input type="submit" style="display:none;">
