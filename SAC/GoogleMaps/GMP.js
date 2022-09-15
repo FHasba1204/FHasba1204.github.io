@@ -228,7 +228,7 @@ var getScriptPromisify = (src) => {
             const longitude = this.$longitude
 
             var keys = [];
-            if (resultSet.length > 0) {
+            if (resultSet) {
 
                 resultSetFinal = resultSet;
              
