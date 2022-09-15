@@ -105,8 +105,11 @@ var getScriptPromisify = (src) => {
                 // mapTypeId: google.maps.MapTypeId.ROADMAP,
                 //  scrollwheel: false
             };
-            this._mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
+            if (!this._mapObj) {
+                this._mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
+            }
             var marker = [];
+            var resultSetFinal = [];
             var infoWindow = new google.maps.InfoWindow();
 
             var icon = {
@@ -114,7 +117,7 @@ var getScriptPromisify = (src) => {
                 scaledSize: new google.maps.Size(50, 50)
             };
 
-            var resultSet = [
+            var resultSet_sample = [
                 {
                     "@MeasureDimension": {
                         "id": "[Account].[parentId].&[Kennzahlcount]",
@@ -216,11 +219,21 @@ var getScriptPromisify = (src) => {
                 }];
 
             const MEASURE_DIMENSION = '@MeasureDimension'
+            const geoChar = this.$geochar
+            const content = this.$content
+            const latitude = this.$latitude
+            const longitude = this.$longitude
             this._gmarkers = [];
 
             var keys = [];
-            for (var i = 0; i < resultSet.length; i++) {
-                Object.keys(resultSet[i]).forEach(function (key) {
+            if (resultSet.length > 0) {
+
+                resultSetFinal = resultSet;
+            } else {
+                resultSetFinal = resultSet_sample;
+            }
+            for (var i = 0; i < resultSetFinal.length; i++) {
+                Object.keys(resultSetFinal[i]).forEach(function (key) {
                     if (keys.indexOf(key) == -1) {
                         keys.push(key);
                     }
@@ -229,13 +242,13 @@ var getScriptPromisify = (src) => {
             console.log(keys);
 
             // Markers
-            resultSet.forEach(dp => {
+            resultSetFinal.forEach(dp => {
                 const { rawValue, description } = dp[MEASURE_DIMENSION]
 
                 const marker = {
-                    position: new google.maps.LatLng(Number(dp.BreitengradPunkt.id), Number(dp.LaengengradPunkt.id)),
-                    title: dp.Postleitzahl.description,
-                    content: dp["GEO_DIM_Ort.Ort_GEOID"].description,
+                    position: new google.maps.LatLng(Number(dp[longitude].id), Number(dp[latitude].id)),
+                    title: dp[geoChar].description,
+                    content: dp[content].description,
                     icon: icon
                 }
                 //markerData.push(marker)
@@ -259,32 +272,32 @@ var getScriptPromisify = (src) => {
 
             );
 
-       
+
         }
 
         onCustomWidgetBeforeUpdate(changedProperties) {
-			this._props = { ...this._props, ...changedProperties };
-		}
+            this._props = { ...this._props, ...changedProperties };
+        }
 
-		onCustomWidgetAfterUpdate(changedProperties) {
-			if ("geochar" in changedProperties) {
-				this.$geochar = changedProperties["geochar"];
-			}
-			
-			if ("latitude" in changedProperties) {
-				this.$latitude = changedProperties["latitude"];
-			}
-			
-			if ("longitude" in changedProperties) {
-				this.$longitude = changedProperties["longitude"];
-			}
+        onCustomWidgetAfterUpdate(changedProperties) {
+            if ("geochar" in changedProperties) {
+                this.$geochar = changedProperties["geochar"];
+            }
+
+            if ("latitude" in changedProperties) {
+                this.$latitude = changedProperties["latitude"];
+            }
+
+            if ("longitude" in changedProperties) {
+                this.$longitude = changedProperties["longitude"];
+            }
 
             if ("content" in changedProperties) {
-				this.$content = changedProperties["content"];
-			}
-			
-			//this.render(this.$value, this.$info, this.$color);
-		}
+                this.$content = changedProperties["content"];
+            }
+
+            this.render();
+        }
 
 
 
