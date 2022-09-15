@@ -48,9 +48,9 @@
 					detail: {
 						properties: {
 							geochar: this.geochar,
-                            latitude: this.latitudechar,
-                            longitude: this.longitudechar,
-                            content: this.contentchar
+                            latitude: this.latitude,
+                            longitude: this.longitude,
+                            content: this.content
 						}
 					}
 			}));
@@ -82,27 +82,27 @@
 			return this._shadowRoot.getElementById("bps_geochar").value;
 		}
 
-        set longitudechar(newLongitudeChar) {
+        set latitude(newLongitudeChar) {
 			this._shadowRoot.getElementById("bps_Longitude").value = newLongitudeChar;
 		}
 
-		get longitudechar() {
+		get latitude() {
 			return this._shadowRoot.getElementById("bps_Longitude").value;
 		}
 
-        set latitudechar(newLatitudeChar) {
+        set longitude(newLatitudeChar) {
 			this._shadowRoot.getElementById("bps_Latitude").value = newLatitudeChar;
 		}
 
-		get latitudechar() {
+		get longitude() {
 			return this._shadowRoot.getElementById("bps_Latitude").value;
 		}
 
-        set contentchar(newContentChar) {
+        set content(newContentChar) {
 			this._shadowRoot.getElementById("bps_Content").value = newContentChar;
 		}
 
-		get contentchar() {
+		get content() {
 			return this._shadowRoot.getElementById("bps_Content").value;
 		}
 	}
