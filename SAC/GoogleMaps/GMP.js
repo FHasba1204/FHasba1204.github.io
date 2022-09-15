@@ -218,19 +218,26 @@ var getScriptPromisify = (src) => {
                     }
                 }];
 
+
+            this._gmarkers = [];
+            
             const MEASURE_DIMENSION = '@MeasureDimension'
             const geoChar = this.$geochar
             const content = this.$content
             const latitude = this.$latitude
             const longitude = this.$longitude
-            this._gmarkers = [];
 
             var keys = [];
             if (resultSet.length > 0) {
 
                 resultSetFinal = resultSet;
+             
             } else {
                 resultSetFinal = resultSet_sample;
+                geoChar = "Postleitzahl"
+                content = "GEO_DIM_Ort.Ort_GEOID"
+                latitude = "LaengengradPunkt"
+                longitude = "BreitengradPunkt"
             }
             for (var i = 0; i < resultSetFinal.length; i++) {
                 Object.keys(resultSetFinal[i]).forEach(function (key) {
