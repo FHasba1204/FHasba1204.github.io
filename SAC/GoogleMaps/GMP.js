@@ -221,11 +221,11 @@ var getScriptPromisify = (src) => {
 
             this._gmarkers = [];
             
-            const MEASURE_DIMENSION = '@MeasureDimension'
-            const geoChar = this.$geochar
-            const content = this.$content
-            const latitude = this.$latitude
-            const longitude = this.$longitude
+            var MEASURE_DIMENSION = '@MeasureDimension'
+            var geoChar = this.$geochar
+            var content = this.$content
+            var latitude = this.$latitude
+            var longitude = this.$longitude
 
             var keys = [];
             if (resultSet) {
