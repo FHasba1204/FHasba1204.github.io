@@ -112,6 +112,8 @@ var getScriptPromisify = (src) => {
 
         render(resultSet) {
 
+            if (this._mapObj)
+            {
             var marker = [];
             var resultSetFinal = [];
             var infoWindow = new google.maps.InfoWindow();
@@ -283,7 +285,7 @@ var getScriptPromisify = (src) => {
                 }
 
             );
-
+            }
 
         }
 
