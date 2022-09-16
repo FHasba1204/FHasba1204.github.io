@@ -117,8 +117,8 @@ var getScriptPromisify = (src) => {
                 scaledSize: new google.maps.Size(50, 50)
             };
         }   
-            var resultSet_sample = [
-                {
+             var resultSet_sample = [];
+     /*           {
                     "@MeasureDimension": {
                         "id": "[Account].[parentId].&[Kennzahlcount]",
                         "description": "Kennzahlcount",
@@ -216,7 +216,7 @@ var getScriptPromisify = (src) => {
                         "description": "86368-Gersthofen-Andreas-Schmid-Str.",
                         "properties": {}
                     }
-                }];
+                }]; */
 
 
             this._gmarkers = [];
@@ -248,7 +248,7 @@ var getScriptPromisify = (src) => {
             }
             console.log(keys);
 
-            this.clearMapMarkers();
+           // this.clearMapMarkers();
 
             // Markers
             resultSetFinal.forEach(dp => {
