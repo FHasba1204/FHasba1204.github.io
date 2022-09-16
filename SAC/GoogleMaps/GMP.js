@@ -44,7 +44,7 @@ var getScriptPromisify = (src) => {
         addMarker(props) {
             var marker = new google.maps.Marker({
                 position: props.position,
-                map: this._mapObj,
+                map: props.map,
                 title: props.title,
                 icon: props.icon,
             });
@@ -257,7 +257,8 @@ var getScriptPromisify = (src) => {
                     position: new google.maps.LatLng(Number(dp[longitude].id), Number(dp[latitude].id)),
                     title: dp[geoChar].description,
                     content: dp[content].description,
-                    icon: icon_std
+                    icon: icon_std,
+                    map: this._mapObj
                 }
                 //markerData.push(marker)
                 this._gmarkers.push(this.addMarker(this._marker))
