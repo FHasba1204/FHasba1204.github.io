@@ -67,8 +67,7 @@ var getScriptPromisify = (src) => {
             for (var i = 0; i < this._gmarkers.length; i++) {
                 this._gmarkers[i].setMap(null);
             }
-            markerCluster.clearMarkers();
-            markerCluster = null;
+            this._markerCluster = null;
             this._gmarkers = [];
         }
 
@@ -266,7 +265,7 @@ var getScriptPromisify = (src) => {
             })
 
 
-            var markerCluster = new MarkerClusterer(this._mapObj, this._gmarkers,
+            this._markerCluster = new MarkerClusterer(this._mapObj, this._gmarkers,
                 {
                     maxZoom: 15,
                     styles: [{
