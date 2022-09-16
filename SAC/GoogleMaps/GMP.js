@@ -248,18 +248,20 @@ var getScriptPromisify = (src) => {
             }
             console.log(keys);
 
+            this.clearMapMarkers();
+
             // Markers
             resultSetFinal.forEach(dp => {
-                const { rawValue, description } = dp[MEASURE_DIMENSION]
+                var { rawValue, description } = dp[MEASURE_DIMENSION]
 
-                const marker = {
+                this._marker = {
                     position: new google.maps.LatLng(Number(dp[longitude].id), Number(dp[latitude].id)),
                     title: dp[geoChar].description,
                     content: dp[content].description,
                     icon: icon_std
                 }
                 //markerData.push(marker)
-                this._gmarkers.push(this.addMarker(marker))
+                this._gmarkers.push(this.addMarker(this._marker))
 
             })
 
