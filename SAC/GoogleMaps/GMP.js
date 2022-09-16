@@ -264,20 +264,20 @@ var getScriptPromisify = (src) => {
             })
 
 
-            var markerCluster = new MarkerClusterer(this._mapObj, this._gmarkers,
-                {
-                    maxZoom: 15,
-                    styles: [{
-                        url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywa_cluster_pin.svg',
-                        textColor: "white",
-                        textSize: "14",
-                        height: 42,
-                        width: 42,
-                        anchorIcon: [32, 21]
-                    }]
-                }
+            // var markerCluster = new MarkerClusterer(this._mapObj, this._gmarkers,
+            //     {
+            //         maxZoom: 15,
+            //         styles: [{
+            //             url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywa_cluster_pin.svg',
+            //             textColor: "white",
+            //             textSize: "14",
+            //             height: 42,
+            //             width: 42,
+            //             anchorIcon: [32, 21]
+            //         }]
+            //     }
 
-            );
+            // );
 
 
         }
