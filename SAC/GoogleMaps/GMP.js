@@ -33,7 +33,7 @@ var getScriptPromisify = (src) => {
             this._root = this._shadowRoot.getElementById('root')
 
             this._props = {}
-            this.render()
+            this.init()
         }
 
         onCustomWidgetResize(width, height) {
@@ -74,7 +74,7 @@ var getScriptPromisify = (src) => {
         // ------------------
         // Scripting methods
         // ------------------
-        async render(resultSet) {
+        async init() {
 
             await getScriptPromisify('https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyAVtvix8ZhA1BRZLHS_DRSJtFsmQ8FQdf0')
             await getScriptPromisify('https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
@@ -85,141 +85,144 @@ var getScriptPromisify = (src) => {
                     this._placeholder = null
                 }*/
             if (!this._mapObj) {
-            const div = document.createElement('div');
-            div.classList.add('map-canvas');
-            //let divid = changedProperties.widgetName;
-            //this._tagContainer = divid;
+                const div = document.createElement('div');
+                div.classList.add('map-canvas');
+                //let divid = changedProperties.widgetName;
+                //this._tagContainer = divid;
 
-            div.innerHTML = '<div id="chart_div_map1" class="map-wrapper"></div>';
-            this._shadowRoot.appendChild(div);
+                div.innerHTML = '<div id="chart_div_map1" class="map-wrapper"></div>';
+                this._shadowRoot.appendChild(div);
 
 
-            var mapcanvas_divstr = this._shadowRoot.getElementById('chart_div_map1');
+                var mapcanvas_divstr = this._shadowRoot.getElementById('chart_div_map1');
 
-            var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
+                var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
 
-            var mapOptions = {
-                zoom: 6,
-                center: latlng,
-                // mapTypeId: google.maps.MapTypeId.ROADMAP,
-                //  scrollwheel: false
-            };
-            
+                var mapOptions = {
+                    zoom: 6,
+                    center: latlng,
+                    // mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    //  scrollwheel: false
+                };
+
                 this._mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
-            
+
+            }
+        }
+
+        render(resultSet) {
+
             var marker = [];
             var resultSetFinal = [];
             var infoWindow = new google.maps.InfoWindow();
-
             var icon_std = {
                 url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywamarker_64.png',
                 scaledSize: new google.maps.Size(50, 50)
             };
-        }   
-             var resultSet_sample = [];
-     /*           {
-                    "@MeasureDimension": {
-                        "id": "[Account].[parentId].&[Kennzahlcount]",
-                        "description": "Kennzahlcount",
-                        "rawValue": "1",
-                        "formattedValue": "1.00"
-                    },
-                    "Lieferant": {
-                        "id": "A & B Senatore Logistics GmbH",
-                        "description": "A & B Senatore Logistics GmbH",
-                        "properties": {}
-                    },
-                    "Postleitzahl": {
-                        "id": "90455",
-                        "description": "90455",
-                        "properties": {}
-                    },
-                    "LaengengradPunkt": {
-                        "id": "11.07845",
-                        "description": "11.07845",
-                        "properties": {}
-                    },
-                    "BreitengradPunkt": {
-                        "id": "49.37222",
-                        "description": "49.37222",
-                        "properties": {}
-                    },
-                    "GEO_DIM_Ort.Ort_GEOID": {
-                        "id": "90455-Nürnberg-Barlachstr. 9",
-                        "description": "90455-Nürnberg-Barlachstr. 9",
-                        "properties": {}
-                    }
-                },
-                {
-                    "@MeasureDimension": {
-                        "id": "[Account].[parentId].&[Kennzahlcount]",
-                        "description": "Kennzahlcount",
-                        "rawValue": "1",
-                        "formattedValue": "1.00"
-                    },
-                    "Lieferant": {
-                        "id": "Abschleppdienst Kelpin",
-                        "description": "Abschleppdienst Kelpin",
-                        "properties": {}
-                    },
-                    "Postleitzahl": {
-                        "id": "8538",
-                        "description": "8538",
-                        "properties": {}
-                    },
-                    "LaengengradPunkt": {
-                        "id": "12.03572",
-                        "description": "12.03572",
-                        "properties": {}
-                    },
-                    "BreitengradPunkt": {
-                        "id": "50.42541",
-                        "description": "50.42541",
-                        "properties": {}
-                    },
-                    "GEO_DIM_Ort.Ort_GEOID": {
-                        "id": "08538-Weischlitz-Am Gewerbering 1",
-                        "description": "08538-Weischlitz-Am Gewerbering 1",
-                        "properties": {}
-                    }
-                },
-                {
-                    "@MeasureDimension": {
-                        "id": "[Account].[parentId].&[Kennzahlcount]",
-                        "description": "Kennzahlcount",
-                        "rawValue": "1",
-                        "formattedValue": "1.00"
-                    },
-                    "Lieferant": {
-                        "id": "Andreas Schmid Int. Spedition",
-                        "description": "Andreas Schmid Int. Spedition",
-                        "properties": {}
-                    },
-                    "Postleitzahl": {
-                        "id": "86368",
-                        "description": "86368",
-                        "properties": {}
-                    },
-                    "LaengengradPunkt": {
-                        "id": "10.87901",
-                        "description": "10.87901",
-                        "properties": {}
-                    },
-                    "BreitengradPunkt": {
-                        "id": "48.42122",
-                        "description": "48.42122",
-                        "properties": {}
-                    },
-                    "GEO_DIM_Ort.Ort_GEOID": {
-                        "id": "86368-Gersthofen-Andreas-Schmid-Str.",
-                        "description": "86368-Gersthofen-Andreas-Schmid-Str.",
-                        "properties": {}
-                    }
-                }]; */
+            var resultSet_sample = [];
+            /*           {
+                           "@MeasureDimension": {
+                               "id": "[Account].[parentId].&[Kennzahlcount]",
+                               "description": "Kennzahlcount",
+                               "rawValue": "1",
+                               "formattedValue": "1.00"
+                           },
+                           "Lieferant": {
+                               "id": "A & B Senatore Logistics GmbH",
+                               "description": "A & B Senatore Logistics GmbH",
+                               "properties": {}
+                           },
+                           "Postleitzahl": {
+                               "id": "90455",
+                               "description": "90455",
+                               "properties": {}
+                           },
+                           "LaengengradPunkt": {
+                               "id": "11.07845",
+                               "description": "11.07845",
+                               "properties": {}
+                           },
+                           "BreitengradPunkt": {
+                               "id": "49.37222",
+                               "description": "49.37222",
+                               "properties": {}
+                           },
+                           "GEO_DIM_Ort.Ort_GEOID": {
+                               "id": "90455-Nürnberg-Barlachstr. 9",
+                               "description": "90455-Nürnberg-Barlachstr. 9",
+                               "properties": {}
+                           }
+                       },
+                       {
+                           "@MeasureDimension": {
+                               "id": "[Account].[parentId].&[Kennzahlcount]",
+                               "description": "Kennzahlcount",
+                               "rawValue": "1",
+                               "formattedValue": "1.00"
+                           },
+                           "Lieferant": {
+                               "id": "Abschleppdienst Kelpin",
+                               "description": "Abschleppdienst Kelpin",
+                               "properties": {}
+                           },
+                           "Postleitzahl": {
+                               "id": "8538",
+                               "description": "8538",
+                               "properties": {}
+                           },
+                           "LaengengradPunkt": {
+                               "id": "12.03572",
+                               "description": "12.03572",
+                               "properties": {}
+                           },
+                           "BreitengradPunkt": {
+                               "id": "50.42541",
+                               "description": "50.42541",
+                               "properties": {}
+                           },
+                           "GEO_DIM_Ort.Ort_GEOID": {
+                               "id": "08538-Weischlitz-Am Gewerbering 1",
+                               "description": "08538-Weischlitz-Am Gewerbering 1",
+                               "properties": {}
+                           }
+                       },
+                       {
+                           "@MeasureDimension": {
+                               "id": "[Account].[parentId].&[Kennzahlcount]",
+                               "description": "Kennzahlcount",
+                               "rawValue": "1",
+                               "formattedValue": "1.00"
+                           },
+                           "Lieferant": {
+                               "id": "Andreas Schmid Int. Spedition",
+                               "description": "Andreas Schmid Int. Spedition",
+                               "properties": {}
+                           },
+                           "Postleitzahl": {
+                               "id": "86368",
+                               "description": "86368",
+                               "properties": {}
+                           },
+                           "LaengengradPunkt": {
+                               "id": "10.87901",
+                               "description": "10.87901",
+                               "properties": {}
+                           },
+                           "BreitengradPunkt": {
+                               "id": "48.42122",
+                               "description": "48.42122",
+                               "properties": {}
+                           },
+                           "GEO_DIM_Ort.Ort_GEOID": {
+                               "id": "86368-Gersthofen-Andreas-Schmid-Str.",
+                               "description": "86368-Gersthofen-Andreas-Schmid-Str.",
+                               "properties": {}
+                           }
+                       }]; */
 
 
             this._gmarkers = [];
-            
+
             var MEASURE_DIMENSION = '@MeasureDimension'
             var geoChar = this.$geochar
             var content = this.$content
@@ -230,7 +233,7 @@ var getScriptPromisify = (src) => {
             if (resultSet) {
 
                 resultSetFinal = resultSet;
-             
+
             } else {
                 resultSetFinal = resultSet_sample;
                 geoChar = "Postleitzahl"
@@ -247,7 +250,7 @@ var getScriptPromisify = (src) => {
             }
             console.log(keys);
 
-           // this.clearMapMarkers();
+            // this.clearMapMarkers();
 
             // Markers
             resultSetFinal.forEach(dp => {
