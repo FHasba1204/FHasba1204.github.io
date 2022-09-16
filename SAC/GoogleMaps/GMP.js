@@ -259,7 +259,7 @@ var getScriptPromisify = (src) => {
                 var { rawValue, description } = dp[MEASURE_DIMENSION]
 
                 this._marker = {
-                    position: new google.maps.LatLng(Number(dp[longitude].id), Number(dp[latitude].id)),
+                    position: new google.maps.LatLng(Number(dp[latitude].id), Number(dp[longitude].id)),
                     title: dp[geoChar].description,
                     content: dp[content].description,
                     icon: icon_std,
