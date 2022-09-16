@@ -77,7 +77,7 @@ var getScriptPromisify = (src) => {
         // ------------------
         async render(resultSet) {
 
-            await getScriptPromisify('https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyAVtvix8ZhA1BRZLHS_DRSJtFsmQ8FQdf0')
+            await getScriptPromisify('https://maps.googleapis.com/maps/api/js?key=AIzaSyAVtvix8ZhA1BRZLHS_DRSJtFsmQ8FQdf0')
             await getScriptPromisify('https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
 
             /*      this._placeholder = this._root.getElementById('#chart_div_map1')
@@ -112,7 +112,7 @@ var getScriptPromisify = (src) => {
             var resultSetFinal = [];
             var infoWindow = new google.maps.InfoWindow();
 
-            var icon = {
+            var icon_std = {
                 url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywamarker_64.png',
                 scaledSize: new google.maps.Size(50, 50)
             };
@@ -256,7 +256,7 @@ var getScriptPromisify = (src) => {
                     position: new google.maps.LatLng(Number(dp[longitude].id), Number(dp[latitude].id)),
                     title: dp[geoChar].description,
                     content: dp[content].description,
-                    icon: icon
+                    icon: icon_std
                 }
                 //markerData.push(marker)
                 this._gmarkers.push(this.addMarker(marker))
@@ -264,20 +264,20 @@ var getScriptPromisify = (src) => {
             })
 
 
-            // var markerCluster = new MarkerClusterer(this._mapObj, this._gmarkers,
-            //     {
-            //         maxZoom: 15,
-            //         styles: [{
-            //             url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywa_cluster_pin.svg',
-            //             textColor: "white",
-            //             textSize: "14",
-            //             height: 42,
-            //             width: 42,
-            //             anchorIcon: [32, 21]
-            //         }]
-            //     }
+            var markerCluster = new MarkerClusterer(this._mapObj, this._gmarkers,
+                {
+                    maxZoom: 15,
+                    styles: [{
+                        url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywa_cluster_pin.svg',
+                        textColor: "white",
+                        textSize: "14",
+                        height: 42,
+                        width: 42,
+                        anchorIcon: [32, 21]
+                    }]
+                }
 
-            // );
+            );
 
 
         }
