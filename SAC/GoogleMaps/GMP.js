@@ -85,7 +85,7 @@ var getScriptPromisify = (src) => {
                     this._root.removeChild(this._placeholder)
                     this._placeholder = null
                 }*/
-
+            if (!this._mapObj) {
             const div = document.createElement('div');
             div.classList.add('map-canvas');
             //let divid = changedProperties.widgetName;
@@ -105,9 +105,9 @@ var getScriptPromisify = (src) => {
                 // mapTypeId: google.maps.MapTypeId.ROADMAP,
                 //  scrollwheel: false
             };
-            if (!this._mapObj) {
+            
                 this._mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
-            }
+            
             var marker = [];
             var resultSetFinal = [];
             var infoWindow = new google.maps.InfoWindow();
@@ -116,7 +116,7 @@ var getScriptPromisify = (src) => {
                 url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywamarker_64.png',
                 scaledSize: new google.maps.Size(50, 50)
             };
-
+        }   
             var resultSet_sample = [
                 {
                     "@MeasureDimension": {
