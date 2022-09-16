@@ -77,7 +77,7 @@ var getScriptPromisify = (src) => {
         // ------------------
         async render(resultSet) {
 
-            await getScriptPromisify('https://maps.googleapis.com/maps/api/js?key=AIzaSyAVtvix8ZhA1BRZLHS_DRSJtFsmQ8FQdf0')
+            await getScriptPromisify('https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg')
             await getScriptPromisify('https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
 
             /*      this._placeholder = this._root.getElementById('#chart_div_map1')
