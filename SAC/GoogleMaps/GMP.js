@@ -110,6 +110,7 @@ var getScriptPromisify = (src) => {
             }
         }
 
+        //Render 
         render(resultSet) {
 
             if (this._mapObj)
