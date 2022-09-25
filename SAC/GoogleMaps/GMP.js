@@ -94,7 +94,7 @@ var getScriptPromisify = (src) => {
                     strokeWeight: 1,
                     fillColor: "#666565",
                     fillOpacity: 0.19,
-                    map: mapObj,
+                    map: this._mapObj,
                     center: loc,
                     radius: meter,
                     clickable: false
@@ -119,7 +119,7 @@ var getScriptPromisify = (src) => {
                            //console.log(gmarkers[i].getTitle());
                        } */
                 }
-                mapObj.fitBounds(regionCircle.getBounds());
+                this._mapObj.fitBounds(this._regionCircle.getBounds());
 
             }
         }
