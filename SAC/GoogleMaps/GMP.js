@@ -89,11 +89,11 @@ var getScriptPromisify = (src) => {
                 if (this._regionCircle && this._regionCircle.setMap)
                     this._regionCircle.setMap(null);
                 this._regionCircle = new google.maps.Circle({
-                    strokeColor: "#666565",
-                    strokeOpacity: 0.8,
+                    strokeColor: "#FF0000",
+                    strokeOpacity: 1,
                     strokeWeight: 1,
-                    fillColor: "#666565",
-                    fillOpacity: 0.19,
+                    fillColor: "#FF0000",
+                    fillOpacity: 0.6,
                     map: this._mapObj,
                     center: loc,
                     radius: meter,
@@ -136,6 +136,7 @@ var getScriptPromisify = (src) => {
             }
             
             this.clearMapMarkers();
+            this.render();
         }
         // ------------------
         // Scripting methods
