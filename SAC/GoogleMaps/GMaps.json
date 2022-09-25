@@ -107,7 +107,9 @@
 				}]
         },
         "setSelection": {
-            "parameters": [{"name": "newSelection", "type": "string"}],
+            "parameters": [
+                {"name": "newSelection", "type": "string"}
+            ]
             },
         "getSelection": {
 			"returnType": "string",
