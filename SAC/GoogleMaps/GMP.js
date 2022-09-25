@@ -24,6 +24,7 @@ var getScriptPromisify = (src) => {
 
 
     class SampleLifeExpectancy2 extends HTMLElement {
+
         constructor() {
             super()
 
@@ -39,6 +40,23 @@ var getScriptPromisify = (src) => {
         onCustomWidgetResize(width, height) {
             //this.render()
 
+        }
+
+
+        setSelection(newSelection) {
+            this._selection = newSelection;
+            // fire "properties changed"
+            this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                detail: {
+                    properties: {
+                        selection: this._selection
+                    }
+                }
+            }));
+        }
+
+        getSelection() {
+            return this._selection;
         }
 
         addMarker(props) {
@@ -57,35 +75,25 @@ var getScriptPromisify = (src) => {
                     this._infoWindow.close();
                     this._infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
                     this._infoWindow.open(marker.getMap(), marker);
-                    this._selection = marker.getTitle(); 
-                    this.dispatchEvent(new CustomEvent("propertiesChanged", {
-                        detail: {
-                            properties: {
-                                selection: this._selection
-                            }
-                        }
-                }));
-                   
+                    this._selection = marker.getTitle();
+                    this.setSelection(this._selection);
+
                 });
             }
 
             return marker;
         }
 
-        getSelection() {
-			return this._selection;
-		}
+
 
         clearMapMarkers() {
-            if (this._gmarkers)
-            {
+            if (this._gmarkers) {
                 for (var i = 0; i < this._gmarkers.length; i++) {
                     this._gmarkers[i].setMap(null);
                 }
                 this._gmarkers = [];
             }
-            if(this._markerCluster)
-            {
+            if (this._markerCluster) {
                 this._markerCluster.clearMarkers();
             }
         }
@@ -136,17 +144,16 @@ var getScriptPromisify = (src) => {
         }
 
         clearCircle() {
-            this._regionCircle.setMap(null);  
-            this._mapObj.setCenter(this._latlng); 
-            this._mapObj.setZoom(6);        
+            this._regionCircle.setMap(null);
+            this._mapObj.setCenter(this._latlng);
+            this._mapObj.setZoom(6);
         }
 
         resetAll() {
-            if(this._regionCircle)
-            {
+            if (this._regionCircle) {
                 this._regionCircle.setMap(null);
             }
-            
+
             this.clearMapMarkers();
             //this.render();
         }
@@ -197,7 +204,7 @@ var getScriptPromisify = (src) => {
 
                 var marker = [];
                 var resultSetFinal = [];
-                
+
                 var icon_std = {
                     url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywamarker_64.png',
                     scaledSize: new google.maps.Size(50, 50)
