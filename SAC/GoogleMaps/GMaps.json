@@ -104,7 +104,7 @@
         "getSelection": {
 			"returnType": "string",
 			"description": "Returns the selected content of the marker.",
-			"body": "return this._currentSelection;"
+			"body": "return this.content;"
 		}
         
     },
