@@ -57,13 +57,16 @@ var getScriptPromisify = (src) => {
                     this._infoWindow.close();
                     this._infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
                     this._infoWindow.open(marker.getMap(), marker);
+                    this._currentSelection = marker.getTitle(); 
                 });
             }
 
             return marker;
         }
 
-
+        getSelection() {
+			return this._currentSelection;
+		}
 
         clearMapMarkers() {
             if (this._gmarkers)
@@ -126,7 +129,8 @@ var getScriptPromisify = (src) => {
 
         clearCircle() {
             this._regionCircle.setMap(null);  
-            this._mapObj.setCenter(this._latlng);         
+            this._mapObj.setCenter(this._latlng); 
+            this._mapObj.setZoom(6);        
         }
 
         resetAll() {

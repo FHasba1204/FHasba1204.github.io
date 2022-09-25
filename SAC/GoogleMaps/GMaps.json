@@ -100,7 +100,12 @@
 					"type": "number",
 					"description": "Radius in KM"
 				}]
-        }
+        },
+        "getSelection": {
+			"returnType": "string",
+			"description": "Returns the selected content of the marker.",
+			"body": "return this._currentSelection;"
+		}
         
     },
     "events": {
