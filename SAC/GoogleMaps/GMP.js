@@ -103,7 +103,7 @@ var getScriptPromisify = (src) => {
 
                 var kx = Math.cos(Math.PI * loc.lat() / 180) * 111;
                 console.log(kx);
-                for (i = 0; i < this._gmarkers.length; i++) {
+                for (let i = 0; i < this._gmarkers.length; i++) {
                     var pos = this._gmarkers[i].getPosition();
 
                     //console.log(gmarkers[i]);
