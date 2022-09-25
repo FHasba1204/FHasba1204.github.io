@@ -66,11 +66,17 @@ var getScriptPromisify = (src) => {
 
 
         clearMapMarkers() {
-            for (var i = 0; i < this._gmarkers.length; i++) {
-                this._gmarkers[i].setMap(null);
+            if (this._gmarkers)
+            {
+                for (var i = 0; i < this._gmarkers.length; i++) {
+                    this._gmarkers[i].setMap(null);
+                }
+                this._gmarkers = [];
             }
-            this._markerCluster.clearMarkers();
-            this._gmarkers = [];
+            if(this._markerCluster)
+            {
+                this._markerCluster.clearMarkers();
+            }
         }
 
         drawCircle(latitude, longitude, radius) {
@@ -124,7 +130,11 @@ var getScriptPromisify = (src) => {
         }
 
         resetAll() {
-            this._regionCircle.setMap(null);
+            if(this._regionCircle)
+            {
+                this._regionCircle.setMap(null);
+            }
+            
             this.clearMapMarkers();
         }
         // ------------------
