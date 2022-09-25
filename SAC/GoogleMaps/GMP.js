@@ -63,11 +63,13 @@ var getScriptPromisify = (src) => {
             return marker;
         }
 
+        
+
         clearMapMarkers() {
             for (var i = 0; i < this._gmarkers.length; i++) {
                 this._gmarkers[i].setMap(null);
             }
-            this._markerCluster = null;
+            this._markerCluster.clearMarkers();
             this._gmarkers = [];
         }
 
