@@ -136,7 +136,7 @@ var getScriptPromisify = (src) => {
             }
             
             this.clearMapMarkers();
-            this.render();
+            //this.render();
         }
         // ------------------
         // Scripting methods
