@@ -63,7 +63,7 @@ var getScriptPromisify = (src) => {
             return marker;
         }
 
-        
+
 
         clearMapMarkers() {
             for (var i = 0; i < this._gmarkers.length; i++) {
@@ -73,6 +73,60 @@ var getScriptPromisify = (src) => {
             this._gmarkers = [];
         }
 
+        drawCircle(latitude, longitude, radius) {
+            //clearMapMarkers();
+            //mapObj.setZoom(8);
+            var loc = new google.maps.LatLng(latitude, longitude);
+            if (radius > 0) {
+                var meter = radius * 1000;
+
+                if (this._regionCircle && this._regionCircle.setMap)
+                    this._regionCircle.setMap(null);
+                this._regionCircle = new google.maps.Circle({
+                    strokeColor: "#666565",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 1,
+                    fillColor: "#666565",
+                    fillOpacity: 0.19,
+                    map: mapObj,
+                    center: loc,
+                    radius: meter,
+                    clickable: false
+                });
+
+
+                var kx = Math.cos(Math.PI * loc.lat() / 180) * 111;
+                console.log(kx);
+                for (i = 0; i < this._gmarkers.length; i++) {
+                    var pos = this._gmarkers[i].getPosition();
+
+                    //console.log(gmarkers[i]);
+                    var dx = Math.abs(loc.lng() - pos.lng()) * kx;
+                    var dy = Math.abs(loc.lat() - pos.lat()) * 111;
+                    var c = Math.sqrt(dx * dx + dy * dy) <= radius;
+                    console.log(radius);
+                    /*    if (c) {
+                           this._gmarkers[i].setVisible(true);
+                           //console.log(gmarkers[i].getTitle());
+                       } else {
+                           this._gmarkers[i].setVisible(false);
+                           //console.log(gmarkers[i].getTitle());
+                       } */
+                }
+                mapObj.fitBounds(regionCircle.getBounds());
+
+            }
+        }
+
+        clearCircle() {
+            this._regionCircle.setMap(null);  
+            this._mapObj.setCenter(this._latlng);         
+        }
+
+        resetAll() {
+            this._regionCircle.setMap(null);
+            this.clearMapMarkers();
+        }
         // ------------------
         // Scripting methods
         // ------------------
@@ -98,195 +152,197 @@ var getScriptPromisify = (src) => {
 
                 var mapcanvas_divstr = this._shadowRoot.getElementById('chart_div_map1');
 
-                var latlng = new google.maps.LatLng(51.1642292, 10.4541194);
+                this._latlng = new google.maps.LatLng(51.1642292, 10.4541194);
 
                 var mapOptions = {
                     zoom: 6,
-                    center: latlng,
+                    center: this._latlng,
                     // mapTypeId: google.maps.MapTypeId.ROADMAP,
                     //  scrollwheel: false
                 };
 
                 this._mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
+                this._infoWindow = new google.maps.InfoWindow();
 
             }
         }
 
         render(resultSet) {
 
-            if (this._mapObj)
-            {
-            var marker = [];
-            var resultSetFinal = [];
-            var infoWindow = new google.maps.InfoWindow();
-            var icon_std = {
-                url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywamarker_64.png',
-                scaledSize: new google.maps.Size(50, 50)
-            };
-            var resultSet_sample = [];
-            /*           {
-                           "@MeasureDimension": {
-                               "id": "[Account].[parentId].&[Kennzahlcount]",
-                               "description": "Kennzahlcount",
-                               "rawValue": "1",
-                               "formattedValue": "1.00"
+            if (this._mapObj) {
+                this.resetAll();
+
+                var marker = [];
+                var resultSetFinal = [];
+                
+                var icon_std = {
+                    url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywamarker_64.png',
+                    scaledSize: new google.maps.Size(50, 50)
+                };
+                var resultSet_sample = [];
+                /*           {
+                               "@MeasureDimension": {
+                                   "id": "[Account].[parentId].&[Kennzahlcount]",
+                                   "description": "Kennzahlcount",
+                                   "rawValue": "1",
+                                   "formattedValue": "1.00"
+                               },
+                               "Lieferant": {
+                                   "id": "A & B Senatore Logistics GmbH",
+                                   "description": "A & B Senatore Logistics GmbH",
+                                   "properties": {}
+                               },
+                               "Postleitzahl": {
+                                   "id": "90455",
+                                   "description": "90455",
+                                   "properties": {}
+                               },
+                               "LaengengradPunkt": {
+                                   "id": "11.07845",
+                                   "description": "11.07845",
+                                   "properties": {}
+                               },
+                               "BreitengradPunkt": {
+                                   "id": "49.37222",
+                                   "description": "49.37222",
+                                   "properties": {}
+                               },
+                               "GEO_DIM_Ort.Ort_GEOID": {
+                                   "id": "90455-Nürnberg-Barlachstr. 9",
+                                   "description": "90455-Nürnberg-Barlachstr. 9",
+                                   "properties": {}
+                               }
                            },
-                           "Lieferant": {
-                               "id": "A & B Senatore Logistics GmbH",
-                               "description": "A & B Senatore Logistics GmbH",
-                               "properties": {}
+                           {
+                               "@MeasureDimension": {
+                                   "id": "[Account].[parentId].&[Kennzahlcount]",
+                                   "description": "Kennzahlcount",
+                                   "rawValue": "1",
+                                   "formattedValue": "1.00"
+                               },
+                               "Lieferant": {
+                                   "id": "Abschleppdienst Kelpin",
+                                   "description": "Abschleppdienst Kelpin",
+                                   "properties": {}
+                               },
+                               "Postleitzahl": {
+                                   "id": "8538",
+                                   "description": "8538",
+                                   "properties": {}
+                               },
+                               "LaengengradPunkt": {
+                                   "id": "12.03572",
+                                   "description": "12.03572",
+                                   "properties": {}
+                               },
+                               "BreitengradPunkt": {
+                                   "id": "50.42541",
+                                   "description": "50.42541",
+                                   "properties": {}
+                               },
+                               "GEO_DIM_Ort.Ort_GEOID": {
+                                   "id": "08538-Weischlitz-Am Gewerbering 1",
+                                   "description": "08538-Weischlitz-Am Gewerbering 1",
+                                   "properties": {}
+                               }
                            },
-                           "Postleitzahl": {
-                               "id": "90455",
-                               "description": "90455",
-                               "properties": {}
-                           },
-                           "LaengengradPunkt": {
-                               "id": "11.07845",
-                               "description": "11.07845",
-                               "properties": {}
-                           },
-                           "BreitengradPunkt": {
-                               "id": "49.37222",
-                               "description": "49.37222",
-                               "properties": {}
-                           },
-                           "GEO_DIM_Ort.Ort_GEOID": {
-                               "id": "90455-Nürnberg-Barlachstr. 9",
-                               "description": "90455-Nürnberg-Barlachstr. 9",
-                               "properties": {}
-                           }
-                       },
-                       {
-                           "@MeasureDimension": {
-                               "id": "[Account].[parentId].&[Kennzahlcount]",
-                               "description": "Kennzahlcount",
-                               "rawValue": "1",
-                               "formattedValue": "1.00"
-                           },
-                           "Lieferant": {
-                               "id": "Abschleppdienst Kelpin",
-                               "description": "Abschleppdienst Kelpin",
-                               "properties": {}
-                           },
-                           "Postleitzahl": {
-                               "id": "8538",
-                               "description": "8538",
-                               "properties": {}
-                           },
-                           "LaengengradPunkt": {
-                               "id": "12.03572",
-                               "description": "12.03572",
-                               "properties": {}
-                           },
-                           "BreitengradPunkt": {
-                               "id": "50.42541",
-                               "description": "50.42541",
-                               "properties": {}
-                           },
-                           "GEO_DIM_Ort.Ort_GEOID": {
-                               "id": "08538-Weischlitz-Am Gewerbering 1",
-                               "description": "08538-Weischlitz-Am Gewerbering 1",
-                               "properties": {}
-                           }
-                       },
-                       {
-                           "@MeasureDimension": {
-                               "id": "[Account].[parentId].&[Kennzahlcount]",
-                               "description": "Kennzahlcount",
-                               "rawValue": "1",
-                               "formattedValue": "1.00"
-                           },
-                           "Lieferant": {
-                               "id": "Andreas Schmid Int. Spedition",
-                               "description": "Andreas Schmid Int. Spedition",
-                               "properties": {}
-                           },
-                           "Postleitzahl": {
-                               "id": "86368",
-                               "description": "86368",
-                               "properties": {}
-                           },
-                           "LaengengradPunkt": {
-                               "id": "10.87901",
-                               "description": "10.87901",
-                               "properties": {}
-                           },
-                           "BreitengradPunkt": {
-                               "id": "48.42122",
-                               "description": "48.42122",
-                               "properties": {}
-                           },
-                           "GEO_DIM_Ort.Ort_GEOID": {
-                               "id": "86368-Gersthofen-Andreas-Schmid-Str.",
-                               "description": "86368-Gersthofen-Andreas-Schmid-Str.",
-                               "properties": {}
-                           }
-                       }]; */
+                           {
+                               "@MeasureDimension": {
+                                   "id": "[Account].[parentId].&[Kennzahlcount]",
+                                   "description": "Kennzahlcount",
+                                   "rawValue": "1",
+                                   "formattedValue": "1.00"
+                               },
+                               "Lieferant": {
+                                   "id": "Andreas Schmid Int. Spedition",
+                                   "description": "Andreas Schmid Int. Spedition",
+                                   "properties": {}
+                               },
+                               "Postleitzahl": {
+                                   "id": "86368",
+                                   "description": "86368",
+                                   "properties": {}
+                               },
+                               "LaengengradPunkt": {
+                                   "id": "10.87901",
+                                   "description": "10.87901",
+                                   "properties": {}
+                               },
+                               "BreitengradPunkt": {
+                                   "id": "48.42122",
+                                   "description": "48.42122",
+                                   "properties": {}
+                               },
+                               "GEO_DIM_Ort.Ort_GEOID": {
+                                   "id": "86368-Gersthofen-Andreas-Schmid-Str.",
+                                   "description": "86368-Gersthofen-Andreas-Schmid-Str.",
+                                   "properties": {}
+                               }
+                           }]; */
 
 
-            this._gmarkers = [];
+                this._gmarkers = [];
 
-            var MEASURE_DIMENSION = '@MeasureDimension'
-            var geoChar = this.$geochar
-            var content = this.$content
-            var latitude = this.$latitude
-            var longitude = this.$longitude
+                var MEASURE_DIMENSION = '@MeasureDimension'
+                var geoChar = this.$geochar
+                var content = this.$content
+                var latitude = this.$latitude
+                var longitude = this.$longitude
 
-            var keys = [];
-            if (resultSet) {
+                var keys = [];
+                if (resultSet) {
 
-                resultSetFinal = resultSet;
+                    resultSetFinal = resultSet;
 
-            } else {
-                resultSetFinal = resultSet_sample;
-                geoChar = "Postleitzahl"
-                content = "GEO_DIM_Ort.Ort_GEOID"
-                latitude = "LaengengradPunkt"
-                longitude = "BreitengradPunkt"
-            }
-            for (var i = 0; i < resultSetFinal.length; i++) {
-                Object.keys(resultSetFinal[i]).forEach(function (key) {
-                    if (keys.indexOf(key) == -1) {
-                        keys.push(key);
+                } else {
+                    resultSetFinal = resultSet_sample;
+                    geoChar = "Postleitzahl"
+                    content = "GEO_DIM_Ort.Ort_GEOID"
+                    latitude = "LaengengradPunkt"
+                    longitude = "BreitengradPunkt"
+                }
+                for (var i = 0; i < resultSetFinal.length; i++) {
+                    Object.keys(resultSetFinal[i]).forEach(function (key) {
+                        if (keys.indexOf(key) == -1) {
+                            keys.push(key);
+                        }
+                    });
+                }
+                console.log(keys);
+
+                // this.clearMapMarkers();
+
+                // Markers
+                resultSetFinal.forEach(dp => {
+                    var { rawValue, description } = dp[MEASURE_DIMENSION]
+
+                    this._marker = {
+                        position: new google.maps.LatLng(Number(dp[latitude].id), Number(dp[longitude].id)),
+                        title: dp[geoChar].description,
+                        content: dp[content].description,
+                        icon: icon_std,
+                        map: this._mapObj
                     }
-                });
-            }
-            console.log(keys);
+                    //markerData.push(marker)
+                    this._gmarkers.push(this.addMarker(this._marker))
 
-            // this.clearMapMarkers();
-
-            // Markers
-            resultSetFinal.forEach(dp => {
-                var { rawValue, description } = dp[MEASURE_DIMENSION]
-
-                this._marker = {
-                    position: new google.maps.LatLng(Number(dp[latitude].id), Number(dp[longitude].id)),
-                    title: dp[geoChar].description,
-                    content: dp[content].description,
-                    icon: icon_std,
-                    map: this._mapObj
-                }
-                //markerData.push(marker)
-                this._gmarkers.push(this.addMarker(this._marker))
-
-            })
+                })
 
 
-            this._markerCluster = new MarkerClusterer(this._mapObj, this._gmarkers,
-                {
-                    maxZoom: 15,
-                    styles: [{
-                        url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywa_cluster_pin.svg',
-                        textColor: "white",
-                        textSize: "14",
-                        height: 42,
-                        width: 42,
-                        anchorIcon: [32, 21]
-                    }]
-                }
+                this._markerCluster = new MarkerClusterer(this._mapObj, this._gmarkers,
+                    {
+                        maxZoom: 15,
+                        styles: [{
+                            url: 'https://commerce.baywa.com/binaries/content/gallery/standorte/config/google-maps/baywa_cluster_pin.svg',
+                            textColor: "white",
+                            textSize: "14",
+                            height: 42,
+                            width: 42,
+                            anchorIcon: [32, 21]
+                        }]
+                    }
 
-            );
+                );
             }
 
         }

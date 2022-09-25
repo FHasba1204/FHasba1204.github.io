@@ -78,7 +78,30 @@
         "clearMapMarkers": {
             "description": "Clear Map Markers",
                 "parameters": []
+        },
+        "clearCircle": {
+            "description": "Clear Map Circle",
+                "parameters": []
+        },
+        "drawCircle":{
+            "description": "Draw Map Circle",
+                "parameters": [{
+					"name": "latitude",
+					"type": "number",
+					"description": "Latitude"
+				},
+				{
+					"name": "longitude",
+					"type": "number",
+					"description": "Longitude"
+				},
+				{
+					"name": "radius",
+					"type": "number",
+					"description": "Radius in KM"
+				}]
         }
+        
     },
     "events": {
         "onClick": {
