@@ -57,7 +57,7 @@ var getScriptPromisify = (src) => {
                     this._infoWindow.close();
                     this._infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
                     this._infoWindow.open(marker.getMap(), marker);
-                    this._currentSelection = marker.getTitle(); 
+                    this._selection = marker.getTitle(); 
                 });
             }
 
@@ -65,7 +65,7 @@ var getScriptPromisify = (src) => {
         }
 
         getSelection() {
-			return this._currentSelection;
+			return this._selection;
 		}
 
         clearMapMarkers() {

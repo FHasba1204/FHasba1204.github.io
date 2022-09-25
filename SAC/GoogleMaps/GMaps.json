@@ -53,6 +53,11 @@
 			"description": "Content Characteristic",
 			"default": ""
 		},
+        "selection": {
+			"type": "string",
+			"description": "Data Selection",
+			"default": ""
+		},
         "width": {
             "type": "integer",
             "description": "Width",
@@ -103,8 +108,7 @@
         },
         "getSelection": {
 			"returnType": "string",
-			"description": "Returns the selected content of the marker.",
-			"body": "return this.content;"
+			"description": "Returns the selected content of the marker."
 		}
         
     },
