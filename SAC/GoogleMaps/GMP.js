@@ -394,19 +394,7 @@ var getScriptPromisify = (src) => {
             this.render();
         }
 
-        set selection(selection) {
-            this._selection = selection;
-            // fire "properties changed"
-            this.dispatchEvent(new CustomEvent("propertiesChanged", {
-                detail: {
-                    properties: {
-                        selection: this._selection
-                    }
-                }
-            }));
-        }
-
-        get selection() {
+        get selectedMarker() {
             return this._selection;
         }
 

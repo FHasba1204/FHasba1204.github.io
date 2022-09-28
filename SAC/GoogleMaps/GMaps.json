@@ -53,7 +53,7 @@
 			"description": "Content Characteristic",
 			"default": ""
 		},
-        "selection": {
+        "selectedMarker": {
 			"type": "string",
 			"description": "Data Selection",
 			"default": ""
@@ -107,9 +107,10 @@
 				}]
 
         },
-        "getSelectedMarker": {
+
+        "getSelection": {
             "description": "Get selected Marker",
-            "body": "return this.selection;",
+            "body": "return this.selectedMarker;",
             "returnType": "string"
         }
 
