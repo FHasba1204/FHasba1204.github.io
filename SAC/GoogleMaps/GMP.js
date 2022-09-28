@@ -58,18 +58,18 @@ var getScriptPromisify = (src) => {
             }
             //Check content
             if (props.content) {
-                marker.addListener("click", () => {
+                marker.addListener("select", () => {
                    // this._infoWindow.close();
                     //this._infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
                     //this._infoWindow.open(marker.getMap(), marker);
                     this._selection = marker.getTitle();
-                    this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                  /*   this.dispatchEvent(new CustomEvent("propertiesChanged", {
                         detail: {
                             properties: {
                                 selection: this._selection
                             }
                         }
-                    }));
+                    })); */
 
                 });
             }
