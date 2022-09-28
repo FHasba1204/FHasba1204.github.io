@@ -99,7 +99,7 @@ var getScriptPromisify = (src) => {
 
                 for (let i = 0; i < this._gmarkers.length; i++) {
                     for (let j = 0; j < contents.length; j++) {
-                        if (this._gmarkers[i] == contents[j]) {
+                        if (this._gmarkers[i].content == contents[j]) {
                             this._gmarkers[i].setVisible(false);
                         }
                     }
