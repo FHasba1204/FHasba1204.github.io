@@ -50,7 +50,7 @@ var getScriptPromisify = (src) => {
             var marker = new google.maps.Marker({
                 position: props.position,
                 map: props.map,
-                title: props.title,
+                title: props.content,
                 icon: props.icon,
             });
             if (props.iconImage) {
@@ -194,6 +194,7 @@ var getScriptPromisify = (src) => {
                     center: this._latlng,
                     // mapTypeId: google.maps.MapTypeId.ROADMAP,
                     //  scrollwheel: false
+                    disableDefaultUI: true
                 };
 
                 this._mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
