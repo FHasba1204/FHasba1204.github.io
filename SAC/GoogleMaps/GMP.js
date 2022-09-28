@@ -212,7 +212,8 @@ var getScriptPromisify = (src) => {
                     center: this._latlng,
                     // mapTypeId: google.maps.MapTypeId.ROADMAP,
                     //  scrollwheel: false
-                    disableDefaultUI: true
+                    disableDefaultUI: true,
+                    gestureHandling: "cooperative"
                 };
 
                 this._mapObj = new google.maps.Map(mapcanvas_divstr, mapOptions);
