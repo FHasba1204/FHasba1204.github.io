@@ -76,7 +76,6 @@ var getScriptPromisify = (src) => {
                     this._infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
                     this._infoWindow.open(marker.getMap(), marker);
                     this._selection = marker.getTitle();
-                    this.setSelection(this._selection);
 
                 });
             }
