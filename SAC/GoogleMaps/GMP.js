@@ -50,9 +50,10 @@ var getScriptPromisify = (src) => {
             var marker = new google.maps.Marker({
                 position: props.position,
                 map: props.map,
-                title: props.content,
+                title: props.title,
                 icon: props.icon,
             });
+            marker.content = props.content;
             if (props.iconImage) {
                 marker.setIcon(props.iconImage);
             }
