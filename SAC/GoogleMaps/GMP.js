@@ -122,8 +122,6 @@ var getScriptPromisify = (src) => {
 
                 var kx = Math.cos(Math.PI * loc.lat() / 180) * 111;
                 console.log(kx);
-                if(this._gmarkers)
-                {
                 for (let i = 0; i < this._gmarkers.length; i++) {
                     var pos = this._gmarkers[i].getPosition();
 
@@ -139,7 +137,6 @@ var getScriptPromisify = (src) => {
                            this._gmarkers[i].setVisible(false);
                            //console.log(gmarkers[i].getTitle());
                        } */
-                }
                 }
                 this._mapObj.fitBounds(this._regionCircle.getBounds());
 

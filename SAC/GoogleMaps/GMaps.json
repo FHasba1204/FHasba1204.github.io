@@ -105,12 +105,26 @@
 					"type": "number",
 					"description": "Radius in KM"
 				}]
-        }
+
+        },
+
+        "setSelection": {
+            "parameters": [
+                {"name": "newSelection", "type": "string"}
+            ]
+            },
+        "getSelection": {
+			"returnType": "string",
+			"description": "Returns the selected content of the marker."
+		}
+
         
     },
     "events": {
         "onClick": {
+
 			"description": "Called when the user clicks the Marker."
+
 		}
     }
 }
