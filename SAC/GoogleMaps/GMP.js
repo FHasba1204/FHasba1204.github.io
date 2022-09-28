@@ -32,10 +32,10 @@ var getScriptPromisify = (src) => {
             this._shadowRoot.appendChild(template.content.cloneNode(true))
 
             this._root = this._shadowRoot.getElementById('root')
-        /*     this.addEventListener("click", event => {
-				var event = new Event("onClick");
-				this.dispatchEvent(event);
-			}); */
+            /*     this.addEventListener("click", event => {
+                    var event = new Event("onClick");
+                    this.dispatchEvent(event);
+                }); */
             this._props = {}
             this.init()
         }
@@ -60,19 +60,19 @@ var getScriptPromisify = (src) => {
             //Check content
             if (props.content) {
                 marker.addListener("click", () => {
-                   // this._infoWindow.close();
+                    // this._infoWindow.close();
                     //this._infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
                     //this._infoWindow.open(marker.getMap(), marker);
                     this._selection = marker.content;
-                    this.dispatchEvent(new CustomEvent("propertiesChanged", { 
-                        detail: { 
-                           properties: { 
-                            selectedMarker: this._selection 
-                           } 
-                        } 
-                     }));
+                    this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                        detail: {
+                            properties: {
+                                selectedMarker: this._selection
+                            }
+                        }
+                    }));
                     var event = new Event("onClick");
-				    this.dispatchEvent(event);
+                    this.dispatchEvent(event);
 
                 });
             }
@@ -91,6 +91,24 @@ var getScriptPromisify = (src) => {
             }
             if (this._markerCluster) {
                 this._markerCluster.clearMarkers();
+            }
+        }
+
+        hideMapMarkers(contents) {
+            if (contents) {
+
+                for (let i = 0; i < this._gmarkers.length; i++) {
+                    for (let j = 0; j < contents.length; j++) {
+                        if (this._gmarkers[i] == contents[j]) {
+                            this._gmarkers[i].setVisible(false);
+                        }
+                    }
+                }
+            }
+            else {
+                for (let i = 0; i < this._gmarkers.length; i++) {
+                    this._gmarkers[i].setVisible(true);
+                }
             }
         }
 
@@ -140,8 +158,7 @@ var getScriptPromisify = (src) => {
         }
 
         clearCircle() {
-            if(this._regionCircle)
-            {
+            if (this._regionCircle) {
                 this._regionCircle.setMap(null);
                 this._mapObj.setCenter(this._latlng);
                 this._mapObj.setZoom(6);
