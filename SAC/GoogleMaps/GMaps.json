@@ -108,7 +108,7 @@
 
         },
         
-        "hideMarkers":{
+        "hideMapMarkers":{
             "description": "Hide Map Markers, the identifier of the Marker is the Content Info in the Map Settings",
             "parameters":[{
                 "name":"content",
