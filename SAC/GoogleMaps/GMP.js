@@ -105,11 +105,18 @@ var getScriptPromisify = (src) => {
                     }
                 }
             }
-            else {
+
+        }
+
+        showMapMarkers()
+        {
+            if(this._gmarkers)
+            {
                 for (let i = 0; i < this._gmarkers.length; i++) {
                     this._gmarkers[i].setVisible(true);
-                }
+                } 
             }
+           
         }
 
         drawCircle(latitude, longitude, radius) {
