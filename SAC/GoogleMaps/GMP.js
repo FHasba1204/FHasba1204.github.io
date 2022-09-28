@@ -43,7 +43,7 @@ var getScriptPromisify = (src) => {
         }
 
 
-        setSelection(newSelection) {
+        set selection(newSelection) {
             this._selection = newSelection;
             // fire "properties changed"
             this.dispatchEvent(new CustomEvent("propertiesChanged", {
@@ -55,7 +55,7 @@ var getScriptPromisify = (src) => {
             }));
         }
 
-        getSelection() {
+        get selection() {
             return this._selection;
         }
 
