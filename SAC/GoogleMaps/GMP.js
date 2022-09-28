@@ -146,7 +146,7 @@ var getScriptPromisify = (src) => {
         }
 
         clearCircle() {
-            i(this._regionCircle)
+            if(this._regionCircle)
             {
                 this._regionCircle.setMap(null);
                 this._mapObj.setCenter(this._latlng);
