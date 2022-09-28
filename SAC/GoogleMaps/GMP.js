@@ -66,7 +66,7 @@ var getScriptPromisify = (src) => {
                     this.dispatchEvent(new CustomEvent("propertiesChanged", { 
                         detail: { 
                            properties: { 
-                             selection: this._selection 
+                            selectedMarker: this._selection 
                            } 
                         } 
                      }));
