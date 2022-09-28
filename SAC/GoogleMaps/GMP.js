@@ -58,7 +58,7 @@ var getScriptPromisify = (src) => {
             }
             //Check content
             if (props.content) {
-                marker.addListener("onClick", () => {
+                marker.addListener("click", () => {
                    // this._infoWindow.close();
                     //this._infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
                     //this._infoWindow.open(marker.getMap(), marker);
