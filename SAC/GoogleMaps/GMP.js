@@ -32,7 +32,10 @@ var getScriptPromisify = (src) => {
             this._shadowRoot.appendChild(template.content.cloneNode(true))
 
             this._root = this._shadowRoot.getElementById('root')
-
+            this.addEventListener("click", event => {
+				var event = new Event("onClick");
+				this.dispatchEvent(event);
+			});
             this._props = {}
             this.init()
         }
@@ -55,13 +58,18 @@ var getScriptPromisify = (src) => {
             }
             //Check content
             if (props.content) {
-                marker.addEventListener("click", event => {
+                marker.addListener("click", () => {
                    // this._infoWindow.close();
                     //this._infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
                     //this._infoWindow.open(marker.getMap(), marker);
                     this._selection = marker.getTitle();
-                    var event = new Event("onClick");
-                    this.dispatchEvent(event);
+                    this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                        detail: {
+                            properties: {
+                                selection: this._selection
+                            }
+                        }
+                    }));
 
                 });
             }
