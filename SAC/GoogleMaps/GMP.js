@@ -63,7 +63,7 @@ var getScriptPromisify = (src) => {
                    // this._infoWindow.close();
                     //this._infoWindow.setContent('<div class="name">' + marker.getTitle() + '</div>');
                     //this._infoWindow.open(marker.getMap(), marker);
-                    this._selection = marker.getTitle();
+                    this._selection = marker.content;
                     this.dispatchEvent(new CustomEvent("propertiesChanged", { 
                         detail: { 
                            properties: { 
@@ -73,13 +73,6 @@ var getScriptPromisify = (src) => {
                      }));
                     var event = new Event("onClick");
 				    this.dispatchEvent(event);
-                  /*   this.dispatchEvent(new CustomEvent("propertiesChanged", {
-                        detail: {
-                            properties: {
-                                selection: this._selection
-                            }
-                        }
-                    })); */
 
                 });
             }
